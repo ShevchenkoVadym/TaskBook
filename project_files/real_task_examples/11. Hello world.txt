@@ -1,0 +1,96 @@
+Название задачи
+>--------------------------------------------------------<
+Hello, World!
+>--------------------------------------------------------<
+
+Условие задачи:
+>--------------------------------------------------------<
+Выведите строку "Hello, World!" дважды
+>--------------------------------------------------------<
+
+Эталонное решение задачи:
+>--------------------------------------------------------<
+public class Solution {
+
+    public static void main(String[] args) {
+
+        System.out.println("Hello, World!");
+        System.out.println("Hello, World!");
+
+    }
+}
+>--------------------------------------------------------<
+
+Шаблон задачи:
+>--------------------------------------------------------<
+public class Solution {
+
+    public static void main(String[] args) {
+
+        // Insert your code here
+
+    }
+}
+>--------------------------------------------------------<
+
+Теги:
+>--------------------------------------------------------<
+System.out.println, Hello, World, Hello World, println
+>--------------------------------------------------------<
+
+Тесты:
+>--------------------------------------------------------<
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.junit.Assert.assertEquals;
+
+public class SolutionTest {
+
+    PrintStream sout;           // keep reference to System.out
+    ByteArrayOutputStream os;   // create byte array storage to save result
+    PrintStream newPrintStream; // substitution for System.out
+
+    String[] result;            // result of console output
+
+    @Before
+    public void setUp() throws Exception {
+        // prepare the environment
+        sout = System.out;  // save ref to sout
+
+        os = new ByteArrayOutputStream();  // create  byte array for info
+        newPrintStream = new PrintStream(os);
+
+        // substitute System.out to own PrintStream
+        System.setOut(newPrintStream);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        // return everything back
+        System.setOut(sout);
+    }
+
+    @Test
+    public void testOutputString() throws Exception {
+        String msg = "The output must be: Hello, World!";
+        Solution.main(null);
+        result = os.toString().split("\\r?\\n");
+
+        for (String item : result)
+            assertEquals(msg, item, "Hello, World!");
+    }
+
+    @Test
+    public void countStrings() throws Exception {
+        String msg = "String must repeated twice";
+        Solution.main(null);
+        result = os.toString().split("\\r?\\n");
+        assertEquals(msg, 2, result.length);
+    }
+}
+>--------------------------------------------------------<

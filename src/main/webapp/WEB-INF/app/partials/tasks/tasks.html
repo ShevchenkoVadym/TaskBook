@@ -1,0 +1,152 @@
+<div class="row">
+  <div class="col-md-1">
+    Уровень:
+  </div>
+  <div class="col-md-10">
+    <ui-select multiple ng-model="multipleLevels.levels" ng-change="pageChanged(currentPage)">
+      <ui-select-match placeholder="Click to select level...">{{$item}}</ui-select-match>
+      <ui-select-choices repeat="level in levels">
+        {{level}}
+      </ui-select-choices>
+    </ui-select>
+  </div>
+  <div class="col-md-1">
+    <button ng-click="multipleLevels.levels = undefined" class="btn btn-default"
+            ng-disabled="!multipleLevels.levels.length" ng-class="{'red': multipleLevels.levels.length > 0}">
+      <span class="glyphicon glyphicon-remove"></span>
+    </button>
+  </div>
+</div>
+<div class="row tag-filter">
+  <div class="col-md-1">
+    Тэги:
+  </div>
+  <div class="col-md-10">
+    <ui-select multiple search-enabled tagging tagging-label="false" reset-search-input ng-model="multipleTags.tags"  ng-change="pageChanged(currentPage)">
+      <ui-select-match placeholder="Нажмите, чтобы выбрать тег...">{{$item}}</ui-select-match>
+      <ui-select-choices repeat="tag in tags | filter:$select.search">
+        {{tag}}
+      </ui-select-choices>
+    </ui-select>
+  </div>
+  <div class="col-md-1">
+    <button ng-click="multipleTags.tags = undefined" class="btn btn-default"
+            ng-disabled="!multipleTags.tags.length" ng-class="{'red': multipleTags.tags.length > 0}">
+      <span class="glyphicon glyphicon-remove"></span>
+    </button>
+  </div>
+</div>
+<div class="row" ng-show="isLoggedIn()">
+  <div class="col-md-12">
+    <form>
+      <label>Показать:</label>
+      <input type="radio" ng-model="solvedCriteria" value="all" ng-change="pageChanged()">  Все
+      <input type="radio" ng-model="solvedCriteria" value="not_solved" ng-change="pageChanged()"> Не решенные
+      <input type="radio" ng-model="solvedCriteria" value="solved" ng-change="pageChanged()"> Решенные
+    </form>
+  </div>
+</div>
+
+<table class="table table-bordered table-condensed table-hover all-tasks">
+  <thead>
+  <th>#</th>
+  <th>
+    <a ng-click="sortBy('taskName')" class="sort-button">
+      Название
+        <span ng-show="predicate == 'taskName'">
+          <span ng-show="!reverse" class="glyphicon glyphicon-arrow-up"></span>
+          <span ng-show="reverse" class="glyphicon glyphicon-arrow-down"></span>
+        </span>
+    </a>
+  </th>
+  <th>
+    <a ng-click="sortBy('rating')" class="sort-button">
+      Рейтинг
+        <span ng-show="predicate == 'rating'">
+          <span ng-show="!reverse" class="glyphicon glyphicon-arrow-up"></span>
+          <span ng-show="reverse" class="glyphicon glyphicon-arrow-down"></span>
+        </span>
+    </a>
+  </th>
+  <th>
+    <a ng-click="sortBy('author')" class="sort-button">
+      Автор
+        <span ng-show="predicate == 'author'">
+          <span ng-show="!reverse" class="glyphicon glyphicon-arrow-up"></span>
+          <span ng-show="reverse" class="glyphicon glyphicon-arrow-down"></span>
+        </span>
+    </a>
+  </th>
+  <th>
+    <a ng-click="sortBy('successfulAttempts')" class="sort-button">
+      Решили
+        <span ng-show="predicate == 'successfulAttempts'">
+          <span ng-show="!reverse" class="glyphicon glyphicon-arrow-up"></span>
+          <span ng-show="reverse" class="glyphicon glyphicon-arrow-down"></span>
+        </span>
+    </a>
+  </th>
+  <th>
+    <a ng-click="sortBy('level')" class="sort-button">
+      Уровень
+        <span ng-show="predicate == 'level'">
+          <span ng-show="!reverse" class="glyphicon glyphicon-arrow-up"></span>
+          <span ng-show="reverse" class="glyphicon glyphicon-arrow-down"></span>
+        </span>
+    </a>
+  </th>
+  <th>
+    <a ng-click="sortBy('creationDate')" class="sort-button">
+      Добавлена
+        <span ng-show="predicate == 'creationDate'">
+          <span ng-show="!reverse" class="glyphicon glyphicon-arrow-up"></span>
+          <span ng-show="reverse" class="glyphicon glyphicon-arrow-down"></span>
+        </span>
+    </a>
+  </th>
+  <th ng-if="isAuthorized()">
+    <a ng-click="sortBy('lifeStage')" class="sort-button">
+      Статус
+        <span ng-show="predicate == 'lifeStage'">
+          <span ng-show="!reverse" class="glyphicon glyphicon-arrow-up"></span>
+          <span ng-show="reverse" class="glyphicon glyphicon-arrow-down"></span>
+        </span>
+    </a>
+  </th>
+  <th ng-if="isAuthorized()">Редактировать</th>
+  <th ng-if="isAdmin()">Удалить</th>
+  </thead>
+  <tr ng-repeat="task in tasks" id="task-{{task.id}}">
+    <td>{{ tasks.indexOf(task) + 1 + itemsPerPage*(currentPage -1) }}</td>
+    <td>
+      <a href="#/tasks/{{task.id}}">
+        <span ng-if="isSolved(task.id)" class="solved" popover="Задача решена" popover-trigger="mouseenter" popover-placement="top">
+          <i class="fa fa-check-circle"></i>
+        </span>
+        {{task.taskName}}
+      </a>
+    </td>
+    <td>{{task.rating}}</td>
+    <td><a href="#/users/{{task.author}}">{{task.author}}</a></td>
+    <td>{{task.successfulAttempts}}</td>
+    <td>{{task.level}}</td>
+    <td>{{task.creationDate | datestamp}}</td>
+    <td ng-if="isAuthorized()">{{task.lifeStage}}</td>
+    <td ng-if="isAuthorized()">
+      <a href="/#/tasks/{{task.id}}/edit" class="btn btn-xs btn-warning" style="color: #FFF">
+        Edit
+      </a>
+    </td>
+    <td ng-if="isAdmin()">
+      <button type="button" class="btn btn-xs btn-danger" confirmed-click="deleteTask(task)" ng-confirm-click=" Удалить задачу '{{ task.taskName }}'? ">
+        Delete
+      </button>
+    </td>
+  </tr>
+</table>
+<div class="text-center" ng-if="totalItems > itemsPerPage">
+  <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage"
+        items-per-page="itemsPerPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;"
+        first-text="&laquo;" last-text="&raquo;" ng-change="pageChanged(currentPage)">
+  </pagination>
+</div>

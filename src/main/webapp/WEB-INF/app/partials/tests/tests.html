@@ -1,0 +1,52 @@
+<div class="columns">
+  <div class="best-items">
+    <h3>Тесты</h3>
+    <div class="row" style="margin-bottom: 15px;">
+      <div class="col-md-3"></div>
+      <div class="col-md-1">
+        Уровень:
+      </div>
+      <div class="col-md-2">
+        <select multiple ng-multiple="true">
+          <option value="">All</option>
+          <option value="">Beginner</option>
+          <option value="">Junior</option>
+          <option value="">Middle</option>
+          <option value="">Senior</option>
+        </select>
+      </div>
+      <div class="col-md-1">
+        Тэги:
+      </div>
+      <div class="col-md-2">
+        <select multiple ng-multiple="true">
+          <option value="">Lorem</option>
+          <option value="">Ipsum</option>
+          <option value="">Amet</option>
+          <option value="">Dolorem</option>
+          <option value="">Elit</option>
+        </select>
+      </div>
+    </div>
+    <table class="table table-bordered table-hover" style="width: 700px;">
+      <thead>
+        <th>Название</th>
+        <th>Рейтинг</th>
+        <th>Прошли</th>
+        <th>Комментарии</th>
+        <th>Уровень</th>
+      </thead>
+      <tr dir-paginate="test in tests | itemsPerPage: 15">
+        <td><a href="#/tests/{{test.id}}">{{test.id}}</a></td>
+        <td>{{test.rating}}</td>
+        <td>{{test.successfulAttempts}}</td>
+        <td>{{test.topLevelCommentsId.length}}</td>
+        <td>{{test.level}}</td>
+      </tr>
+    </table>
+    <div class="text-center">
+      <dir-pagination-controls template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html">
+      </dir-pagination-controls>
+    </div>
+  </div>
+</div>

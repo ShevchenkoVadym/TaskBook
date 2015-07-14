@@ -1,0 +1,113 @@
+Название задачи
+>--------------------------------------------------------<
+Я никогда не буду работать за копейки
+>--------------------------------------------------------<
+
+Условие задачи:
+>--------------------------------------------------------<
+Используя цикл вывести на экран сто раз надпись:
+"Я никогда не буду работать за копейки. Амиго"
+>--------------------------------------------------------<
+
+Эталонное решение задачи:
+>--------------------------------------------------------<
+public class Solution
+{
+    public static void main(String[] args)
+    {
+        for(int i = 0; i < 100; ++i)
+            System.out.println("Я никогда не буду работать за копейки. Амиго");
+    }
+}
+>--------------------------------------------------------<
+
+Шаблон задачи:
+>--------------------------------------------------------<
+public class Solution {
+  public static void main(String[] args) {
+
+    // Insert your code here
+
+  }
+}
+>--------------------------------------------------------<
+
+Тесты:
+>--------------------------------------------------------<
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.junit.Assert.assertEquals;
+
+public class SolutionTest {
+    //catch console output
+    PrintStream ps;  // save ref to sout
+    ByteArrayOutputStream out;  // create  byte array for info
+    PrintStream printStream;
+
+    String[] result; // take result of console output
+
+    @Before
+    public void setUp() throws Exception {
+        //output data
+        ps = System.out;  // save ref to sout
+
+        out = new ByteArrayOutputStream();  // create  byte array for info
+        printStream = new PrintStream(out);
+
+        System.setOut(printStream);
+
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        System.setOut(ps);
+    }
+
+    @Test
+    public void testMain() throws Exception {
+        Solution.main(null);
+        result = out.toString().split("\\r?\\n");
+        assertEquals(result[0], "Я никогда не буду работать за копейки. Амиго");
+
+    }
+
+    @Test
+    public void secondTestMain() throws Exception {
+        Solution.main(null);
+        result = out.toString().split("\\r?\\n");
+        assertEquals(100, result.length);
+    }
+}
+>--------------------------------------------------------<
+
+Json with inner formatting received from frontend (with some ONE LINE COMMENTS):
+>--------------------------------------------------------<
+{
+     "_class"    : "ru.javarush.taskbook.model.Task"
+    ,"author":"alex"
+    ,"tags":["system.out.println","вывод","циклы","for"]
+    ,"authorityName":"alex"
+    ,"creationDate": "2014-12-31T00:00:01.001Z"
+    ,"lastModificationDate": "2014-12-31T00:00:01.001Z"
+    ,"approvalDate": "2014-12-31T00:00:01.001Z"
+    ,"lifeStage":"APPROVED"
+    ,"level":"BEGINNER"
+    ,"taskName":"Я никогда не буду работать за копейки"
+    ,"condition":"Используя цикл вывести на экран сто раз надпись: \n \"Я никогда не буду работать за копейки. Амиго\""
+    ,"sourceCode":"public class Solution { \n\n\t public static void main(String[] args) { \n\n\t\t for(int i = 0; i < 100; ++i) \n\t\t\t System.out.println(\"Я никогда не буду работать за копейки. Амиго\"); \n\n\t } \n }"
+    ,"templateCode":"public class Solution { \n\n\t public static void main(String[] args) { \n\n\t\t // Input your code here  \n\n\t } \n }"
+    ,"tests":"import org.junit.After;\nimport org.junit.Before;\nimport org.junit.Test;\n\nimport java.io.ByteArrayOutputStream;\nimport java.io.PrintStream;\n\nimport static org.junit.Assert.assertEquals;\n\npublic class SolutionTest {\n    //catch console output\n    PrintStream ps;  // save ref to sout\n    ByteArrayOutputStream out;  // create  byte array for info\n    PrintStream printStream;\n\n    String[] result; // take result of console output\n\n\n    @Before\n    public void setUp() throws Exception {\n        //output data\n        ps = System.out;  // save ref to sout\n\n        out = new ByteArrayOutputStream();  // create  byte array for info\n        printStream = new PrintStream(out);\n\n        System.setOut(printStream);\n\n    }\n\n    @Test\n    public void testMain() throws Exception {\n        Solution.main(null);\n        result = out.toString().split(\"\\\\r?\\\\n\");\n        assertEquals(result[0], \"Я никогда не буду работать за копейки. Амиго\");\n\n    }\n\n    @Test\n    public void secondTestMain() throws Exception {\n        Solution.main(null);\n        result = out.toString().split(\"\\\\r?\\\\n\");\n        assertEquals(100, result.length);\n    }\n}"
+    ,"rating":34.2
+    ,"likedBy":[]
+    ,"dislikedBy":[]
+    ,"votersAmount":4
+    ,"averageAttempts":88.53
+    ,"successfulAttempts":12
+    ,"failureAttempts":13
+}
+>--------------------------------------------------------<

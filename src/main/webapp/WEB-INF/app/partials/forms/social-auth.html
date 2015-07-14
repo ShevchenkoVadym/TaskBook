@@ -1,0 +1,21 @@
+<div class="social">
+  <a href="/auth/vkontakte?scope=email" class="btn btn-vk"><span class="fa fa-vk fa-2x"></span></a>
+</div>
+
+<div class="social">
+  <a href="/auth/facebook?scope=email" class="btn btn-facebook"><span class="fa fa-facebook fa-2x"></span></a>
+</div>
+
+<div class="social">
+  <form action="/auth/google" method="POST">
+    <input type="hidden" name="scope" value="email profile" />
+    <input type="hidden" name="access_type" value="offline" />
+    <button type="submit" class="btn btn-google-plus"><span class="fa fa-google-plus fa-2x"></span></button>
+  </form>
+</div>
+
+<div style="display:none">
+  <a href="/auth/facebook?scope=email"><button class="btn btn-facebook"><i class="icon-facebook"></i> | Facebook Sign In</button></a>
+  <a href="/auth/vkontakte?scope=email"><button class="btn btn-vk"><i class="icon-vk"></i> | Vkontakte Sign In</button></a>
+  <a href="/auth/google?scope=email%20profile&access_type=offline"><button class="btn btn-google-plus"><i class="icon-google-plus"></i> | Google Sign In</button></a>
+</div>

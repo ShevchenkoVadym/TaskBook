@@ -1,0 +1,137 @@
+Название задачи
+>--------------------------------------------------------<
+Копирование двух файлов - исправить программу
+>--------------------------------------------------------<
+
+Условие задачи:
+>--------------------------------------------------------<
+Нужно исправить программу, чтобы компилировалась и работала
+Задача: Программа вводит два имени файла. И копирует первый файл на место заданное вторым именем.
+>--------------------------------------------------------<
+
+Эталонное решение задачи:
+>--------------------------------------------------------<
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+/* Нужно исправить программу, чтобы компилировалась и работала
+Задача: Программа вводит два имени файла. И копирует первый файл на место заданное вторым именем.
+*/
+
+public class Solution
+{
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        String sourceFileName = reader.readLine();
+        String destinationFileName = reader.readLine();
+
+        java.io.FileInputStream fileInputStream = new java.io.FileInputStream(sourceFileName);
+        java.io.FileOutputStream fileOutputStream = new java.io.FileOutputStream(destinationFileName);
+
+        int count = 0;
+
+        while (fileInputStream.available() > 0)
+        {
+            int data = fileInputStream.read();
+            fileOutputStream.write(data);
+            count++;
+        }
+
+        System.out.println("Скопировано байт " + count);
+
+        fileInputStream.close();
+        fileOutputStream.close();
+
+    }
+}
+>--------------------------------------------------------<
+
+Шаблон задачи:
+>--------------------------------------------------------<
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+/* Нужно исправить программу, чтобы компилировалась и работала
+Задача: Программа вводит два имени файла. И копирует первый файл на место заданное вторым именем.
+*/
+
+public class Solution
+{
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        String sourceFileName = reader.readLine();
+        String destinationFileName = reader.readLine();
+
+        java.io.FileInputStream fileInputStream = new java.io.FileInputStream(sourceFileName);
+        java.io.FileOutputStream fileOutputStream = new java.io.FileOutputStream(destinationFileName);
+
+        int count = 0;
+
+        while (fileInputStream.available() > 0);
+        {
+            int data = fileInputStream.read();
+            fileOutputStream.write(data);
+            count++;
+        }
+
+        System.out.println("Скопировано байт " + count);
+
+        fileInputStream.close();
+        fileOutputStream.close();
+
+    }
+}
+>--------------------------------------------------------<
+
+Тесты:
+>--------------------------------------------------------<
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+
+import static org.junit.Assert.assertEquals;
+
+public class FixProgrammTest {
+
+    @Test
+    public void testCopying() throws Exception {
+    		// TODO: realize test
+        throw new Exception();
+    }
+
+}
+>--------------------------------------------------------<
+
+Json with inner formatting received from frontend (with some ONE LINE COMMENTS):
+>--------------------------------------------------------<
+{
+     "_class"    : "ru.javarush.taskbook.model.Task"
+    ,"author":"alex"
+    ,"tags":["работа-с-файлами","чтение","fileinputstream","system.in","inputstreamreader","bufferedreader"]
+    ,"authorityName":"mary"
+    ,"creationDate": "2014-12-31T00:00:01.001Z"
+    ,"lastModificationDate": "2014-12-31T00:00:01.001Z"
+    ,"approvalDate": "2014-12-31T00:00:01.001Z"
+    ,"lifeStage":"APPROVED"
+    ,"level":"JUNIOR"
+    ,"taskName":"Копирование двух файлов - исправить программу"
+    ,"condition":"Нужно исправить программу, чтобы компилировалась и работала\nЗадача: Программа вводит два имени файла. И копирует первый файл на место заданное вторым именем."
+    ,"sourceCode":"import java.io.BufferedReader;\nimport java.io.IOException;\nimport java.io.InputStreamReader;\n\n/* Нужно исправить программу, чтобы компилировалась и работала\nЗадача: Программа вводит два имени файла. И копирует первый файл на место заданное вторым именем.\n*/\n\npublic class Solution\n{\n    public static void main(String[] args) throws IOException\n    {\n        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));\n\n        String sourceFileName = reader.readLine();\n        String destinationFileName = reader.readLine();\n\n        java.io.FileInputStream fileInputStream = new java.io.FileInputStream(sourceFileName);\n        java.io.FileOutputStream fileOutputStream = new java.io.FileOutputStream(destinationFileName);\n\n        int count = 0;\n\n        while (fileInputStream.available() > 0)    \n        {\n            int data = fileInputStream.read();\n            fileOutputStream.write(data);\n            count++;\n        }\n\n        System.out.println(\"Скопировано байт \" + count);\n\n        fileInputStream.close();\n        fileOutputStream.close();\n\n    }\n}"
+    ,"templateCode":"import java.io.BufferedReader;\nimport java.io.IOException;\nimport java.io.InputStreamReader;\n\n/* Нужно исправить программу, чтобы компилировалась и работала\nЗадача: Программа вводит два имени файла. И копирует первый файл на место заданное вторым именем.\n*/\n\npublic class Solution\n{\n    public static void main(String[] args) throws IOException\n    {\n        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));\n\n        String sourceFileName = reader.readLine();\n        String destinationFileName = reader.readLine();\n\n        java.io.FileInputStream fileInputStream = new java.io.FileInputStream(sourceFileName);\n        java.io.FileOutputStream fileOutputStream = new java.io.FileOutputStream(destinationFileName);\n\n        int count = 0;\n\n        while (fileInputStream.available() > 0);    \n        {\n            int data = fileInputStream.read();\n            fileOutputStream.write(data);\n            count++;\n        }\n\n        System.out.println(\"Скопировано байт \" + count);\n\n        fileInputStream.close();\n        fileOutputStream.close();\n\n    }\n}"
+    ,"tests":"import org.junit.After;\nimport org.junit.Before;\nimport org.junit.Test;\n\n\nimport static org.junit.Assert.assertEquals;\n\npublic class FixProgrammTest {\n\n    @Test\n    public void testCopying() throws Exception {\n    \t\t// TODO: realize test\n        throw new Exception();\n    }\n\n}"
+    ,"rating":28
+    ,"likedBy":[]
+    ,"dislikedBy":[]
+    ,"votersAmount":56
+    ,"averageAttempts":49.53
+    ,"successfulAttempts":12
+    ,"failureAttempts":23
+}
+>--------------------------------------------------------<

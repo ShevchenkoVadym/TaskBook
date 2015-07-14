@@ -1,0 +1,28 @@
+<div style="padding: 15px 0 15px;">
+  <label>Теги:</label>
+  <span class="glyphicon glyphicon-tags"></span>&nbsp;
+  <a ng-repeat="tag in tags" href="#/tasks?tags={{tag.name}}"
+     class="btn btn-default" style="margin-right: 5px;"
+     ng-class="{'btn-xs': tag.count < 10,
+                'btn-sm': 10 <= tag.count && tag.count < 20,
+                'btn-lg': tag.count > 30}">
+    {{tag.name}} <span class="badge badge-info">{{tag.count}}</span>
+  </a>
+</div>
+
+<tabset class="tab-animation">
+  <tab>
+    <tab-heading>
+      Добавленные задачи
+    </tab-heading>
+    <div ng-include src="'partials/users/_user_added_tasks.html'"
+         ng-class="{'col-md-8': !equalsTo(user.username)}"></div>
+  </tab>
+  <tab>
+    <tab-heading>
+      Решенные задачи
+    </tab-heading>
+    <div ng-include src="'partials/users/_user_tasks.html'"
+         ng-class="{'col-md-8': !equalsTo(user.username)}"></div>
+  </tab>
+</tabset>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:util="http://www.springframework.org/schema/util"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <util:properties id="application" location="classpath:application.properties"/>
+
+    <http use-expressions="true"
+          entry-point-ref="unauthorizedEntryPoint" authentication-manager-ref="authenticationManager">
+        <!--<intercept-url pattern="/rest/users/login" access="permitAll" requires-channel="https"/>-->
+        <intercept-url pattern="/rest/api/v1/users/current_user" method="GET" access="permitAll"/>
+        <intercept-url pattern="/rest/api/v1/users" method="GET" access="permitAll"/>
+        <intercept-url pattern="/rest/api/v1/users/**" method="GET" access="permitAll"/>
+        <intercept-url pattern="/rest/api/v1/users" method="POST" access="permitAll"/>
+        <intercept-url pattern="/rest/api/v1/users/**" method="PUT" access="isAuthenticated()"/>
+        <intercept-url pattern="/rest/api/v1/users" method="DELETE" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/rest/api/v1/users/**/tags" method="GET" access="permitAll"/>
+        <intercept-url pattern="/rest/api/v1/users/login" access="permitAll" />
+        <intercept-url pattern="/rest/api/v1/users/recover" method="POST" access="permitAll" />
+        <intercept-url pattern="/rest/api/v1/users/recover/do" method="GET" access="permitAll" />
+        <intercept-url pattern="/rest/api/v1/users/confirmation/do" method="GET" access="permitAll" />
+        <intercept-url pattern="/rest/api/v1/users/feedback" method="POST" access="permitAll" />
+
+        <intercept-url pattern="/rest/api/v1/tasks/api" access="permitAll" />
+        <intercept-url pattern="/rest/api/v1/tasks/**" method="GET" access="permitAll" />
+        <intercept-url pattern="/rest/api/v1/tasks/**" method="DELETE" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/rest/api/v1/tasks/**/vote" method="POST" access="isAuthenticated()" />
+        <intercept-url pattern="/rest/api/v1/tasks" method="POST" access="isAuthenticated()" />
+        <intercept-url pattern="/rest/api/v1/tasks/test" method="POST" access="isAuthenticated()" />
+        <intercept-url pattern="/rest/api/v1/tasks/tags" method="GET" access="permitAll" />
+        <intercept-url pattern="/rest/api/v1/tasks/levels" method="GET" access="permitAll" />
+        <intercept-url pattern="/rest/api/v1/tasks/environment" method="GET" access="permitAll" />
+        <intercept-url pattern="/rest/api/v1/tasks/**" method="PUT" access="isAuthenticated()" />
+        <intercept-url pattern="/rest/api/v1/tasks/user/**" method="GET" access="permitAll" />
+
+        <!--changed http for correct Autowire in test (UserRestTest0-->
+        <!--<intercept-url pattern="/scripts/**" access="permitAll" requires-channel="https"/>-->
+        <intercept-url pattern="/assets/**" access="permitAll" />
+        <!--<intercept-url pattern="/css/**" access="permitAll" requires-channel="https"/>-->
+        <intercept-url pattern="/data/**" access="permitAll" />
+        <!--<intercept-url pattern="/img/**" access="permitAll" requires-channel="https"/>-->
+        <intercept-url pattern="/js/**" access="permitAll" />
+        <intercept-url pattern="/**" />
+        <!-- Enables Spring Security CSRF protection -->
+        <!--<csrf/>-->
+
+        <form-login
+                always-use-default-target="false"
+                authentication-failure-handler-ref="sameUrlAuthenticationFailureHandler"
+                authentication-success-handler-ref="sameUrlAuthenticationSuccessHandler"/>
+
+        <!-- method GET:  http://localhost:8080/j_spring_security_logout page -->
+        <logout delete-cookies="JSESSIONID"
+                success-handler-ref="sameUrlLogoutSuccessHandler"
+                />
+
+        <remember-me user-service-ref="userServiceImpl"  />
+        <custom-filter ref="socialAuthenticationFilter" before="PRE_AUTH_FILTER" />
+    </http>
+
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider ref="daoAuthenticationProvider"/>
+        <authentication-provider ref="socialAuthenticationProvider"/>
+
+    </authentication-manager>
+
+    <!--TODO do for email handling needs - override to load By email-->
+    <beans:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <beans:property name="userDetailsService" ref="userServiceImpl"/>
+        <beans:property name="passwordEncoder" ref="passwordEncoder"/>
+    </beans:bean>
+
+
+    <beans:bean id="unauthorizedEntryPoint"
+                class="ru.javarush.taskbook.web.security.UnauthorizedEntryPoint" />
+
+    <beans:bean id="sameUrlLogoutSuccessHandler"
+                class="ru.javarush.taskbook.web.security.SameUrlLogoutSuccessHandler" />
+
+    <beans:bean id="sameUrlAuthenticationFailureHandler"
+                class="ru.javarush.taskbook.web.security.SameUrlAuthenticationFailureHandler" />
+
+    <beans:bean id="sameUrlAuthenticationSuccessHandler"
+                class="ru.javarush.taskbook.web.security.SameUrlAuthenticationSuccessHandler" />
+
+    <beans:bean id="passwordEncoder"
+                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <beans:constructor-arg index="0" value="10"/>
+    </beans:bean>
+
+    <!--
+    Configures social authentication filter which integrates Spring Social
+    with Spring Security.
+    -->
+    <beans:bean id="socialAuthenticationFilter" class="org.springframework.social.security.SocialAuthenticationFilter">
+        <beans:constructor-arg index="0" ref="authenticationManager"/>
+        <beans:constructor-arg index="1" ref="userIdSource"/>
+        <beans:constructor-arg index="2" ref="usersConnectionRepository"/>
+        <beans:constructor-arg index="3" ref="scopedTarget.connectionFactoryLocator"/>
+        <!-- Sets the url of the registration form. Unique Entry point -->
+        <beans:property name="signupUrl" value="/rest/api/v1/users/login"/>
+        <!--user always redirected to the first page due to specific authentification-->
+        <beans:property name="postLoginUrl" value="/"/>
+        <beans:property name="alwaysUsePostLoginUrl" value="true"/>
+
+    </beans:bean>
+    <!--
+        Configures the social authentication provider which processes authentication requests
+        made by using supported social authentication services (FB, VK and Google).
+    -->
+    <beans:bean id="socialAuthenticationProvider" class="org.springframework.social.security.SocialAuthenticationProvider">
+        <beans:constructor-arg index="0" ref="usersConnectionRepository"/>
+        <beans:constructor-arg index="1" ref="simpleSocialUserDetailsService"/>
+    </beans:bean>
+
+
+    <!--
+    This bean encrypts the authorization details of the connection. In
+    our example, the authorization details are stored as plain text.
+    DO NOT USE THIS IN PRODUCTION.
+    -->
+    <beans:bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors" factory-method="noOpText"/>
+    <!--
+        <bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors" factory-method="text">
+            <constructor-arg value="${security.encryptPassword}" />
+            <constructor-arg value="${security.encryptSalt}" />
+        </bean>
+    -->
+
+    <!--
+        This bean determines the account ID of the user. The example application
+        uses the username as the account ID.
+    -->
+    <beans:bean id="userIdSource" class="org.springframework.social.security.AuthenticationNameUserIdSource"/>
+
+    <beans:bean id="usersConnectionRepository"
+                class="org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository">
+        <beans:constructor-arg ref="dataSource"/>
+        <beans:constructor-arg ref="myConnectionFactoryLocator"/>
+        <beans:constructor-arg ref="textEncryptor"/>
+    </beans:bean>
+
+    <beans:bean id="myConnectionFactoryLocator"
+          class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
+        <beans:property name="connectionFactories" >
+            <beans:list>
+                <beans:bean class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+                    <beans:constructor-arg value="${facebook.app.id}"/>
+                    <beans:constructor-arg value="${facebook.app.secret}"/>
+                </beans:bean>
+
+                <beans:bean class="org.springframework.social.vkontakte.connect.VKontakteConnectionFactory">
+                    <beans:constructor-arg value="${vkontakte.app.id}"/>
+                    <beans:constructor-arg value="${vkontakte.app.secret}"/>
+                </beans:bean>
+                <beans:bean class="org.springframework.social.google.connect.GoogleConnectionFactory">
+                    <beans:constructor-arg value="${google.app.id}"/>
+                    <beans:constructor-arg value="${google.app.secret}"/>
+                </beans:bean>
+            </beans:list>
+        </beans:property>
+    </beans:bean>
+    <beans:bean id="scopedTarget.connectionFactoryLocator"
+                class="org.springframework.social.security.SocialAuthenticationServiceRegistry">
+        <beans:property name="connectionFactories">
+            <beans:list>
+                <beans:bean class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+                    <beans:constructor-arg value="${facebook.app.id}"/>
+                    <beans:constructor-arg value="${facebook.app.secret}"/>
+                </beans:bean>
+
+                <beans:bean class="org.springframework.social.vkontakte.connect.VKontakteConnectionFactory">
+                    <beans:constructor-arg value="${vkontakte.app.id}"/>
+                    <beans:constructor-arg value="${vkontakte.app.secret}"/>
+                </beans:bean>
+                <beans:bean class="org.springframework.social.google.connect.GoogleConnectionFactory">
+                    <beans:constructor-arg value="${google.app.id}"/>
+                    <beans:constructor-arg value="${google.app.secret}"/>
+                </beans:bean>
+            </beans:list>
+        </beans:property>
+    </beans:bean>
+
+
+</beans:beans>

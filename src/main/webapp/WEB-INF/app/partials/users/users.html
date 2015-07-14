@@ -1,0 +1,119 @@
+<div class="columns">
+  <div class="best-items">
+    <form name="searchByName" class="form-inline" role="search">
+      <div class="input-group search-field has-feedback">
+        <span class="input-group-addon">
+          <span class="glyphicon glyphicon-search"></span>
+        </span>
+        <input type="search" size="15" class="form-control" placeholder="Поиск пользователя по имени..."
+                   autofocus ng-model="nameQuery" />
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="submit" ng-click="pageChanged(currentPage)">Искать!</button>
+        </span>
+      </div><!-- /input-group -->
+      <div class="form-group" ng-hide="!nameQuery.length">
+        <button class="btn btn-default" ng-click="resetFilterName()">
+          <span class="glyphicon glyphicon-remove red"></span>
+        </button>
+      </div>
+    </form>
+    <table class="table table-bordered table-condensed table-hover all-users">
+      <thead>
+        <th>#</th>
+        <th>
+            <a ng-click="sortBy('country')" class="sort-button">
+                Страна
+                <span ng-show="predicate == 'country'">
+                    <span ng-show="!reverse" class="glyphicon glyphicon-arrow-up"></span>
+                    <span ng-show="reverse" class="glyphicon glyphicon-arrow-down"></span>
+                </span>
+            </a>
+        </th>
+        <th>
+            <a ng-click="sortBy('username')" class="sort-button">
+                Пользователь
+                <span ng-show="predicate == 'username'">
+                    <span ng-show="!reverse" class="glyphicon glyphicon-arrow-up"></span>
+                    <span ng-show="reverse" class="glyphicon glyphicon-arrow-down"></span>
+                </span>
+            </a>
+        </th>
+        <th>
+            <a ng-click="sortBy('rating')" class="sort-button">
+                Рейтинг
+                <span ng-show="predicate == 'rating'">
+                    <span ng-show="!reverse" class="glyphicon glyphicon-arrow-up"></span>
+                    <span ng-show="reverse" class="glyphicon glyphicon-arrow-down"></span>
+                </span>
+            </a>
+        </th>
+        <th>
+            <a ng-click="sortBy('tasksSolved')" class="sort-button">
+                Задач решено
+                <span ng-show="predicate == 'tasksSolved'">
+                    <span ng-show="!reverse" class="glyphicon glyphicon-arrow-up"></span>
+                    <span ng-show="reverse" class="glyphicon glyphicon-arrow-down"></span>
+                </span>
+            </a>
+        </th>
+        <th ng-if="isAuthorized()" colspan="3">
+          Set role
+        </th>
+        <th ng-if="isAuthorized()">Ban</th>
+        <th ng-if="isAuthorized()">Delete</th>
+      </thead>
+      <tr ng-repeat="user in users" id="user-{{user.username}}">
+        <td>{{ users.indexOf(user) + 1 + itemsPerPage*(currentPage -1) }}</td>
+        <td>
+            <span ng-if="user.country">
+              <img ng-src="assets/img/flags/24/{{user.country + '.png'}}">
+            </span>
+            <span ng-if="!user.country">
+              <span class="glyphicon glyphicon-question-sign"></span>
+            </span>
+        </td>
+        <td><a href="#/users/{{user.username}}">{{user.username}}</a></td>
+        <td>{{1*user.rating}}</td>
+        <td>{{user.tasksSolved}}</td>
+        
+        <td ng-if="!equalsTo(user.username) && (isAuthorized())">
+          <span class="glyphicon glyphicon-ok" ng-show="updated_user == user.username" id="updated_user">
+          </span>
+        </td>
+        <td ng-if="!equalsTo(user.username) && (isAuthorized())">
+          <select multiple ng-model="user.roles" ng-options="rol for rol in roles" ng-change="change()"></select>
+        </td>
+        <td ng-if="!equalsTo(user.username) && (isAuthorized())">
+          <input type="button" class="btn btn-xs btn-success" ng-click="changeRole(user)" value="Set" />
+        </td>
+        
+        <td ng-if="!equalsTo(user.username) && (isAuthorized())">
+          <div ng-switch on="user.isEnabled">
+            <div ng-switch-when="false">
+              <button type="button" class="btn btn-xs btn-success" ng-click="banUser(user)">
+                Unban
+              </button>
+            </div>
+            <div ng-switch-default>
+              <button type="button" class="btn btn-xs btn-danger" ng-click="banUser(user)">
+                Ban
+              </button>
+            </div>
+          </div>
+        </td>
+        
+        <td ng-if="!equalsTo(user.username) && (isAuthorized())">
+          <button type="button" class="btn btn-xs btn-danger" confirmed-click="deleteUser(user)" ng-confirm-click="Удалить пользователя '{{user.username}}'?">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </table>
+    <div class="text-center" ng-if="totalItems > itemsPerPage">
+        <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage"
+                    items-per-page="itemsPerPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;"
+                    first-text="&laquo;" last-text="&raquo;" ng-change="pageChanged(currentPage)">
+        </pagination>
+    </div>
+  </div>
+</div>

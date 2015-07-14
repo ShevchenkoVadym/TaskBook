@@ -1,0 +1,122 @@
+Название задачи
+>--------------------------------------------------------<
+Метод getName в классе Cat
+>--------------------------------------------------------<
+
+Условие задачи:
+>--------------------------------------------------------<
+Переопредели метод getName в классе Cat так, чтобы программа выдавала на экран надпись
+«Я - кот».
+>--------------------------------------------------------<
+
+Эталонное решение задачи:
+>--------------------------------------------------------<
+public class Solution
+{
+    public static void main(String[] args)
+    {
+        Pet pet = new Cat();
+
+        System.out.println(pet.getName());
+    }
+
+    public static class Pet
+    {
+        public String getName()
+        {
+            return "Я - пушистик";
+        }
+    }
+
+    public static class Cat extends Pet
+    {
+        public String getName()
+        {
+            return "Я - кот";
+        }
+    }
+}
+
+>--------------------------------------------------------<
+
+Шаблон задачи:
+>--------------------------------------------------------<
+public class Solution
+{
+    public static void main(String[] args)
+    {
+        Pet pet = new Cat();
+
+        System.out.println(pet.getName());
+    }
+
+    public static class Pet
+    {
+        public String getName()
+        {
+            return "Я - пушистик";
+        }
+    }
+
+    public static class Cat extends Pet
+    {
+       // Напиши свой код здесь
+    }
+}
+
+>--------------------------------------------------------<
+
+Тесты:
+>--------------------------------------------------------<
+import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.junit.Assert.assertEquals;
+
+public class Solution7Test {
+
+    @Test
+    public void testMain() throws Exception {
+        PrintStream ps;
+        ByteArrayOutputStream out;
+        PrintStream printStream;
+        String[] result;
+        ps = System.out;
+        out = new ByteArrayOutputStream();
+        printStream = new PrintStream(out);
+        System.setOut(printStream);
+        Solution.main(null);
+        result = out.toString().split("\\r?\\n");
+        assertEquals(result[0], "Я - кот");
+        System.setOut(ps);
+    }
+}
+>--------------------------------------------------------<
+
+Json with inner formatting received from frontend (with some ONE LINE COMMENTS):
+>--------------------------------------------------------<
+{
+        "_class"    : "ru.javarush.taskbook.model.Task"
+    ,"author":"mary"
+    ,"tags":["классы","методы"]
+    ,"authorityName":"mary"
+    ,"creationDate": "2015-02-10T00:00:01.001Z"
+    ,"lastModificationDate": "2015-02-21T00:00:01.001Z"
+    ,"approvalDate": "2015-02-21T00:00:01.001Z"
+    ,"lifeStage":"APPROVED"
+    ,"level":"JUNIOR"
+    ,"taskName":"Метод getName в классе Cat"
+    ,"condition":"Переопредели метод getName в классе Cat так, чтобы программа выдавала на экран надпись «Я - кот»."
+    ,"sourceCode":"public class Solution \n{\n public static void main(String[] args)\n {\n  Pet pet = new Cat();\n\n   System.out.println(pet.getName());\n }\n\n public static class Pet\n {\n  public String getName()\n {\n  return \"Я - пушистик\";\n }\n }\n\n public static class Cat extends Pet\n {\n   public String getName()\n {\n  return \"Я - кот\";\n }\n }\n }"
+    ,"templateCode":"public class Solution\n {\n   public static void main(String[] args)\n   {\n     Pet pet = new Cat();\n\n   System.out.println(pet.getName());\n }\n\n  public static class Pet\n  {\n   public String getName()\n  {\n   return \"Я - пушистик\";\n  }\n   }\n\n  public static class Cat extends Pet\n  {\n    // Напиши свой код здесь\n }\n }"
+    ,"tests":"import org.junit.Test;\n\n   import java.io.ByteArrayOutputStream;\n   import java.io.PrintStream;\n\n   import static org.junit.Assert.assertEquals;\n\n   public class SolutionTest {\n\n   @Test\n  public void testMain() throws Exception {\n  PrintStream ps;\n  ByteArrayOutputStream out;\n   PrintStream printStream;\n   String[] result;\n   ps = System.out;\n   out = new ByteArrayOutputStream();\n  printStream = new PrintStream(out);\n  System.setOut(printStream);\n   Solution.main(null);\n   result = out.toString().split(\"\\r?\\n\");\n  assertEquals(result[0], \"Я - кот\");\n  System.setOut(ps);\n }\n "
+    ,"rating":1
+    ,"votersAmount":1
+    ,"averageAttempts":1
+    ,"successfulAttempts":1
+    ,"failureAttempts":1
+    ,"testEnvironment":"JAVA_JUNIT"
+    }
+>--------------------------------------------------------<

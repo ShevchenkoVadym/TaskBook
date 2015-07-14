@@ -1,0 +1,86 @@
+<!-- Задачи добавленные пользователем -->
+<div>
+  <table class="table table-hover table-condensed">
+    <thead>
+      <th>#</th>
+      <th style="text-align: left;">
+          <a ng-click="sortBy('taskName', 'added')" class="sort-button">
+            Название
+            <span ng-show="predicate == 'taskName'">
+              <span ng-show="!reverse" class="glyphicon glyphicon-arrow-up"></span>
+              <span ng-show="reverse" class="glyphicon glyphicon-arrow-down"></span>
+            </span>
+          </a>
+      </th>
+      <th>
+          <a ng-click="sortBy('rating', 'added')" class="sort-button">
+            Рейтинг
+            <span ng-show="predicate == 'rating'">
+              <span ng-show="!reverse" class="glyphicon glyphicon-arrow-up"></span>
+              <span ng-show="reverse" class="glyphicon glyphicon-arrow-down"></span>
+            </span>
+          </a>
+      </th>
+      <th>
+          <a ng-click="sortBy('level', 'added')" class="sort-button">
+            Уровень
+            <span ng-show="predicate == 'level'">
+              <span ng-show="!reverse" class="glyphicon glyphicon-arrow-up"></span>
+              <span ng-show="reverse" class="glyphicon glyphicon-arrow-down"></span>
+            </span>
+          </a>
+      </th>
+      <th>
+          <a ng-click="sortBy('creationDate', 'added')" class="sort-button">
+            Добавлена
+            <span ng-show="predicate == 'creationDate'">
+              <span ng-show="!reverse" class="glyphicon glyphicon-arrow-up"></span>
+              <span ng-show="reverse" class="glyphicon glyphicon-arrow-down"></span>
+            </span>
+          </a>
+      </th>
+      <th ng-if="equalsTo(user.username)"></th>
+    <!--  <th ng-if="equalsTo(user.username)">Статус</th>-->
+    </thead>
+    <tbody ng-if="tasksAdded.length > 0">
+      <tr ng-repeat="task in tasksAdded">
+        <td>{{itemIndex}}</td>
+        <td style="text-align: left;">
+          <a href="#/tasks/{{task.id}}">
+              {{task.taskName.substring(0, 100)}}
+          </a>
+        </td>
+        <td>{{task.rating}}</td>
+        <td>{{task.level}}</td>
+        <td>{{task.creationDate | datestamp }}</td>
+        <td ng-if="equalsTo(user.username)">
+          <a href="/#/tasks/{{task.id}}/edit" class="btn btn-xs btn-warning" style="color: #FFF">
+            Edit
+          </a>
+        </td>
+       <!-- <td ng-if="equalsTo(user.username)"></td>-->
+      </tr>
+    </tbody>
+    <tbody ng-if="tasksAdded.length == 0">
+      <tr>
+        <td colspan="5" class="text-center">
+          <span ng-if="equalsTo(user.username)">
+            Вы еще не добавили ни одной задачи.
+          </span>
+          <span ng-if="!equalsTo(user.username)">
+            Пользователь не добавил ни одной задачи.
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="text-center" ng-if="totalItemsAdded > itemsPerPage">
+      <pagination boundary-links="true" total-items="totalItemsAdded" ng-model="currentPageAdded"
+                  items-per-page="itemsPerPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;"
+                  first-text="&laquo;" last-text="&raquo;" ng-change="pageChanged('added', currentPageAdded)">
+      </pagination>
+  </div>
+  <!-- <div class="text-center" ng-if="equalsTo(user.username)">
+    <a href="#/tasks/new" class="btn btn-info">Добавить новую задачу</a>
+  </div> -->
+</div>

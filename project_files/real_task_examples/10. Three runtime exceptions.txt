@@ -1,0 +1,96 @@
+Название задачи
+>--------------------------------------------------------<
+Три Runtime исключения
+>--------------------------------------------------------<
+
+Условие задачи:
+>--------------------------------------------------------<
+Вам доверили разработку механизма доступа к сверхсекретной лаборатории.
+Секретный код состоит из одной цифры и все сотрудники получили его по почте (только никому не говори - это 4).
+Шпионы из других компаний скоро будут пытаются подобрать секретный код.
+Если кто-то попытается ввести единицу, то мы схватим его и допросим по коду "the requested operation is not supported".
+При попытке ввести двойку - мы будем допрашивать по коду "a method has been passed an illegal or inappropriate argument".
+При вводе тройки - допросим этого супершпиона по коду "a method has been invoked at an illegal or inappropriate time".
+Не подведи нас!
+
+PS: использовать args метода main и производные классы от RuntimeException.
+
+// операция не поддерживается
+// методу был передан недопустимый или неподходящий аргумент
+// метод был вызван в недопустимый или неподходящий момент времени
+>--------------------------------------------------------<
+
+Эталонное решение задачи:
+>--------------------------------------------------------<
+public class Solution {
+
+    public static void main(String[] args) {
+
+        if (args == null)
+            return;
+
+        if (args.length != 0 && args[0].equals("1"))
+            throw new UnsupportedOperationException();
+
+        if (args.length != 0 && args[0].equals("2"))
+            throw new IllegalArgumentException();
+
+        if (args.length != 0 && args[0].equals("3"))
+            throw new IllegalStateException();
+
+    }
+}
+>--------------------------------------------------------<
+
+Шаблон задачи:
+>--------------------------------------------------------<
+public class Solution {
+
+    public static void main(String[] args) {
+
+        // Insert your code here
+    }
+
+}
+>--------------------------------------------------------<
+
+Теги:
+>--------------------------------------------------------<
+args, UnsupportedOperationException, IllegalArgumentException, IllegalStateException, RuntimeException
+>--------------------------------------------------------<
+
+Тесты:
+>--------------------------------------------------------<
+import org.junit.Test;
+
+public class SolutionTest {
+
+    @Test (expected = UnsupportedOperationException.class)
+    public void testUnsupportedOperationException() throws Exception {
+        new Solution().main(new String[]{"1"});
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testIllegalArgumentException() throws Exception {
+        new Solution().main(new String[]{"2"});
+    }
+
+    @Test (expected = IllegalStateException.class)
+    public void testIllegalStateException() throws Exception {
+        new Solution().main(new String[]{"3"});
+    }
+
+    /*
+    @Test
+    public void testNull() throws Exception {
+        new Solution().main(null);
+    }
+    */
+
+    @Test
+    public void testTwoArguments() throws Exception {
+        new Solution().main(new String[]{"4", "5"});
+    }
+
+}
+>--------------------------------------------------------<

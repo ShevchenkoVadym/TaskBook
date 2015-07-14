@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-md-3" style="border-right: 1px solid #eaeaea">
+    <section class="text-center">
+      <div class="user-image-wrap">
+        <img ng-src="{{!user.imageUrl ? 'assets/img/user_photo_male.png' : user.imageUrl }}" class="img-thumbnail user-img">
+      </div>
+      <input class="btn btn-default" ng-click="openImageUpdateDialog()" 
+               value="Изменить фото" ng-if="equalsTo(user.username)" />
+    </section>
+    <section style="margin-top: 15px;">
+        <table class="left-align">
+          <thead>
+            <th colspan='2'>Инфо:</th>
+          </thead>
+          <tbody>
+          <tr>
+            <td style="width:85px;">Имя(логин):</td>
+            <td>{{user.username}}</td>
+          </tr>
+          <tr>
+            <td>Эл.почта:</td>
+            <td>{{user.email}}</td>
+          </tr>
+          <tr>
+            <td>Страна:</td>
+            <td>
+              <img ng-src="assets/img/flags/16/{{user.country + '.png'}}" ng-if="user.country">
+              <span class="glyphicon glyphicon-question-sign" ng-if="!user.country"></span>
+              &nbsp;<small>{{user.country}}</small>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin: 10px 0 10px; color: red; line-height: 20px;">
+        <div ng-if="!user.isNonReadOnly">
+          <div style="">Доступ: Read-only</div>
+        </div>
+        <div ng-if="!user.isEnabled">
+          <div style="">Статус: Пользователь забанен</div>
+        </div>
+      </div>
+      <div style="margin-bottom: 25px;" class="text-center" 
+            ng-if="equalsTo(user.username)">
+        <input class="btn btn-default" ng-click="openUpdateDialog()" 
+               value="Редактировать" />
+      </div>
+    </section>
+    <section>
+      <table class="left-align">
+          <thead>
+            <th colspan='2'>Статистика:</th>
+          </thead>
+          <tbody>
+          <tr>
+            <td style="width:150px;">Задач решено:</td>
+            <td>
+              {{totalItemsSolved || 0}}
+            </td>
+          </tr>
+          <tr>
+            <td>Задач добавлено:</td>
+            <td>
+              {{totalItemsAdded || 0}}
+            </td>
+          </tr>
+          <tr>
+            <td>Рейтинг:</td>
+            <td>{{user.rating}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+  <div class="col-md-9">
+    <div ng-include src="'partials/users/_user_tabs.html'"></div>
+  </div>
+</div>

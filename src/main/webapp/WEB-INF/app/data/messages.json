@@ -1,0 +1,66 @@
+[
+  {
+    "name": "successful_reg",
+    "text": "Регистрация прошла успешно. Вам выслано письмо на email для подтверждения регистрации."
+  },
+  {
+    "name": "server_unavailable",
+    "text": "Не удалось получить ответ от сервера."
+  },
+  {
+    "name": "incorrect_current_password",
+    "text": "Текущий пароль введен неправильно."
+  },
+  {
+    "name": "empty_new_password",
+    "text": "Новый пароль не должен быть пустым."
+  },
+  {
+    "name": "image_required",
+    "text": "Необходимо добавить файл с изображением."
+  },
+  {
+    "name": "unknown_error",
+    "text": "Произошла ошибка."
+  },
+  {
+    "name": "tasks_solved",
+    "text": "Решенные задачи."
+  },
+  {
+    "name": "tasks_added",
+    "text": "Добавленные задачи."
+  },
+  {
+    "name": "successful_task_delete",
+    "text": "Задача успешно удалена."
+  },
+  {
+    "name": "task_not_found",
+    "text": "Задачи с таким id не существует."
+  },
+  {
+    "name": "task_verification",
+    "text": "Задача ожидает проверки модератором."
+  },
+  {
+    "name": "feedback_success",
+    "text": "Сообщение успешно отправлено!"
+  },
+  {
+    "name": "feedback_error",
+    "text": "Произошла ошибка при отправке сообщения."
+  },
+  {
+    "name": "incorrect_img_format",
+    "text": "Должен быть файл в формате .jpg, .jpeg, .png или .gif."
+  },
+  {
+    "name": "started_password_recovery",
+    "text": "Дальнейшие инструкции по получению нового пароля были отправлены на указанный адрес."
+  },
+  {
+    "name": "logged_in_only",
+    "text": "Для выполнения данного действия необходимо войти на сайт"
+  }
+]

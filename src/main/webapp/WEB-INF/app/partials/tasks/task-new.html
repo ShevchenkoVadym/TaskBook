@@ -1,0 +1,127 @@
+<script type="text/ng-template" id="help">
+  <div ng-include src="'partials/other/_info.html'"></div>
+</script>
+
+<div ng-hide="global_loader">
+  <div ng-include src="'partials/forms/_form-messages.html'"></div>
+
+  <div class="form-message" style="height: 52px;">
+    <div class="alert alert-warning" role="alert" style="margin: 10px 0 0;" ng-hide="!formTaskNew.$error.required">
+      <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+      Все поля обязательны к заполнению.
+    </div>
+  </div>
+
+  <form name="formTaskNew" class="form-horizontal new_task_form">
+    <div class="form-group">
+      <div class="col-md-6">
+        <div class="field">
+          <label>Введите эталонное решение задачи:</label>
+          <a href ng-dialog="help"><span class="glyphicon glyphicon-question-sign"></span></a>
+
+          <div class="ui-cm-editor">
+          <textarea ui-codemirror ui-codemirror-opts="editorOptions" ng-model="task.sourceCode" required>
+          </textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="field">
+          <label>Шаблон задачи:</label>
+          <a href ng-dialog="help"><span class="glyphicon glyphicon-question-sign"></span></a>
+
+          <div class="ui-cm-editor">
+          <textarea ui-codemirror ui-codemirror-opts="editorOptions" ng-model="task.templateCode" class="textarea-full" required>
+          </textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-8">
+        <div class="field">
+          <div class="task-info">
+            <label>Тесты:</label>
+            <a href ng-dialog="help"><span class="glyphicon glyphicon-question-sign"></span></a>
+          </div>
+          <div class="task-info">
+            <select ng-model="task.testEnvironment" ng-options="lib for lib in libs"></select>
+          </div>
+
+          <div class="ui-cm-editor">
+            <textarea ui-codemirror ui-codemirror-opts="editorOptions" ng-model="task.tests" class="textarea-full" required>
+            </textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="field" ng-if="!isRegular()">
+          <label>Статус:</label>
+          <br />
+          <select ng-model="task.lifeStage" ng-options="stage for stage in lifeStages" class="form-control"></select>
+        </div>
+
+        <div class="field">
+          <label>Название задачи:</label>
+          <a href ng-dialog="help"><span class="glyphicon glyphicon-question-sign"></span></a>
+          <br />
+          <input type="text" ng-model="task.taskName" class="form-control" required />
+        </div>
+
+        <div class="field">
+          <label>Уровень:</label>
+          <br />
+          <select ng-model="task.level" ng-options="level for level in levels" class="form-control"></select>
+        </div>
+
+        <div class="field">
+          <label>Тэги:</label>
+          <a href ng-dialog="help"><span class="glyphicon glyphicon-question-sign"></span></a>
+          <br />
+          <ui-select multiple tagging tagging-label="false" reset-search-input ng-model="task.tags">
+            <ui-select-match placeholder="Нажмите, чтобы выбрать тег...">{{$item}}</ui-select-match>
+            <ui-select-choices repeat="tag in tags">
+              {{tag}}
+            </ui-select-choices>
+          </ui-select>
+        </div>
+
+        <div class="field">
+          <label>Условие задачи:</label>
+          <a href ng-dialog="help"><span class="glyphicon glyphicon-question-sign"></span></a>
+          <br />
+          <textarea ng-model="task.condition" class="form-control" required></textarea>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="text-center new_task_controls">
+    <ul>
+      <li>
+        <button ng-hide="show_publish_loader" type="button" class="btn btn-success"
+                ng-disabled="formTaskNew.$invalid" data-ng-click="publish(task)"
+                popover="Опубликовать" popover-trigger="mouseenter" popover-placement="left">
+          <span class="fa fa-floppy-o fa-2x"></span>
+        </button>
+        <img ng-show="show_publish_loader" src="assets/img/ajax-loader.gif" class="loader">
+      </li>
+      <li>
+        <button ng-hide="show_test_loader" type="button" class="btn btn-warning"
+                ng-disabled="formTaskNew.$invalid" data-ng-click="check(task)"
+                popover="Проверить" popover-trigger="mouseenter" popover-placement="left">
+          <span class="fa fa fa-check-square-o fa-2x"></span>
+        </button>
+        <img ng-show="show_test_loader" src="assets/img/ajax-loader.gif" class="loader">
+      </li>
+      <!--<li>
+        <button class="btn btn-default" data-ng-click="draft(task)">
+          Сохранить<br>в черновики
+        </button>
+      </li>-->
+    </ul>
+  </div>
+</div>

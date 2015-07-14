@@ -1,0 +1,90 @@
+logs
+.idea
+.idea_modules
+idea.bat
+out
+target
+*.iml
+atlassian-ide-plugin.xml
+file_storage
+# Directories #
+/build/
+/bin/
+target/
+CATALINA_HOME_IS_UNDEFINED/
+ 
+# OS Files #
+.DS_Store
+ 
+*.class
+ 
+# Package Files #
+*.jar
+*.war
+*.ear
+*.db
+ 
+######################
+# Windows
+######################
+ 
+# Windows image file caches
+Thumbs.db 
+ 
+# Folder config file
+Desktop.ini
+ 
+######################
+# Eclipse
+######################
+ 
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+/src/main/resources/rebel.xml
+# External tool builders
+.externalToolBuilders/
+ 
+# Locally stored "Eclipse launch configurations"
+*.launch
+ 
+# CDT-specific
+.cproject
+ 
+# PDT-specific
+.buildpath
+
+
+# scripts
+scripts/wget/work/
+scripts/wget/results/*
+scripts/wget/cookies.txt
+
+# Frontend test libs, tools, tmp files
+src/main/webapp/WEB-INF/test/npm-debug.log
+src/main/webapp/WEB-INF/app/test/node_modules/
+src/main/webapp/WEB-INF/test/node_modules/
+src/main/webapp/WEB-INF/node_modules/
+src/main/webapp/WEB-INF/tmp/
+src/main/webapp/WEB-INF/test/coverage/
+
+#spring-data-mongo.xml
+#mysql.properties
+#mongo.properties
+
+#Ignore uploads
+src/main/webapp/resources/images/users/
+target/taskbook/resources/images/users/
+
+src/main/resources/db/mysql.properties

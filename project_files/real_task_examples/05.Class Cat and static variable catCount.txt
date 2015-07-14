@@ -1,0 +1,134 @@
+Название задачи
+>--------------------------------------------------------<
+Класс Cat и статическая переменная catCount
+>--------------------------------------------------------<
+
+Условие задачи:
+>--------------------------------------------------------<
+В классе Cat создай статическую переменную public int catCount.
+Создай конструктор [public Cat()]. Пусть при каждом создании кота (нового объекта Cat) статическая переменная
+catCount увеличивается на 1. Создать 10 объектов Cat и вывести значение переменной catCount на экран.
+>--------------------------------------------------------<
+
+Эталонное решение задачи:
+>--------------------------------------------------------<
+
+public class Solution
+{
+    public static void main(String[] args)
+    {
+        //Cоздай 10 объектов Cat тут
+        Cat cat1 = new Cat();
+        Cat cat2 = new Cat();
+        Cat cat3 = new Cat();
+        Cat cat4 = new Cat();
+        Cat cat5 = new Cat();
+        Cat cat6 = new Cat();
+        Cat cat7 = new Cat();
+        Cat cat8 = new Cat();
+        Cat cat9 = new Cat();
+        Cat cat10 = new Cat();
+
+        // Выведи на экран catCount тут
+        System.out.println(Cat.catCount);
+    }
+
+    public static class Cat
+    {
+        //Cоздай статическую переменную тут
+
+        public static int catCount=0;
+
+        //создай конструктор тут
+        public Cat()
+        {
+            catCount++;
+        }
+    }
+
+}
+>--------------------------------------------------------<
+
+Шаблон задачи:
+>--------------------------------------------------------<
+
+public class Solution
+{
+    public static void main(String[] args)
+    {
+        //Cоздай 10 объектов Cat тут
+
+        // Выведи на экран catCount тут
+
+    }
+
+    public static class Cat
+    {
+        //Cоздай статическую переменную тут
+
+
+
+        //создай конструктор тут
+
+    }
+
+}
+>--------------------------------------------------------<
+
+Тесты:
+>--------------------------------------------------------<
+import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.junit.Assert.assertEquals;
+
+public class SolutionTest {
+
+    @Test
+    public void testMain2() throws Exception {
+        PrintStream ps;
+        ByteArrayOutputStream out;
+        PrintStream printStream;
+        String[] result;
+        ps = System.out;
+        out = new ByteArrayOutputStream();
+        printStream = new PrintStream(out);
+        System.setOut(printStream);
+        Solution.main(null);
+        result = out.toString().split("\\r?\\n");
+        assertEquals(result[0], "10");
+        System.setOut(ps);
+        Solution.Cat cat11 = new Solution.Cat();
+        Solution.Cat cat12 = new Solution.Cat();
+        assertEquals(Solution.Cat.catCount , 12);
+    }
+}
+>--------------------------------------------------------<
+
+Json with inner formatting received from frontend (with some ONE LINE COMMENTS):
+>--------------------------------------------------------<
+{
+        "_class"    : "ru.javarush.taskbook.model.Task"
+    ,"author":"mary"
+    ,"tags":["system.out.println","вывод","конструктор","классы"]
+    ,"authorityName":"mary"
+    ,"creationDate": "2015-02-10T00:00:01.001Z"
+    ,"lastModificationDate": "2015-02-21T00:00:01.001Z"
+    ,"approvalDate": "2015-02-21T00:00:01.001Z"
+    ,"lifeStage":"APPROVED"
+    ,"level":"JUNIOR"
+    ,"taskName":"Класс Cat и статическая переменная catCount"
+    ,"condition":"В классе Cat создай статическую переменную public int catCount.\nСоздай конструктор [public Cat()].\n Пусть при каждом создании кота (нового объекта Cat) статическая переменная \n catCount увеличивается на 1. Создать 10 объектов Cat и вывести значение переменной catCount на экран."
+    ,"sourceCode":"public class Solution\n {\n public static void main(String[] args) \n{\n//Cоздай 10 объектов Cat тут\nCat cat1 = new Cat();\nCat cat2 = new Cat();\nCat cat3 = new Cat();\nCat cat4 = new Cat();\nCat cat5 = new Cat();\nCat cat6 = new Cat();\nCat cat7 = new Cat();\nCat cat8 = new Cat();\nCat cat9 = new Cat();\nCat cat10 = new Cat();\n\n// Выведи на экран catCount тут\nSystem.out.println(Cat.catCount);\n}\n\npublic static class Cat\n{\n//Cоздай статическую переменную тут\n\npublic static int catCount=0;\n\n//создай конструктор тут\npublic Cat()\n{\ncatCount++;\n}\n}\n\n}\n"
+    ,"templateCode":"public class Solution\n{\npublic static void main(String[] args)\n{\n//Cоздай 10 объектов Cat тут\n\n// Выведи на экран catCount тут\n\n}\n\npublic static class Cat\n{\n//Cоздай статическую переменную тут\n\n\n\n//создай конструктор тут\n\n}\n\n}\n\n "
+    ,"tests":"import org.junit.Test;\n\n import java.io.ByteArrayOutputStream;\nimport java.io.PrintStream;\n\nimport static org.junit.Assert.assertEquals;\n\npublic class SolutionTest {\n\n@Test\npublic void testMain2() throws Exception {\nPrintStream ps;\nByteArrayOutputStream out;\nPrintStream printStream;\nString[] result;\nps = System.out;\nout = new ByteArrayOutputStream();\nprintStream = new PrintStream(out);\nSystem.setOut(printStream);\nSolution.main(null);\nresult = out.toString().split(\"\\r?\\n\");\nassertEquals(result[0], \"10\");\nSystem.setOut(ps);\nSolution.Cat cat11 = new Solution.Cat();\nSolution.Cat cat12 = new Solution.Cat();\nassertEquals(Solution.Cat.catCount , 12);\n}\n}\n"
+    ,"rating":1
+    ,"votersAmount":1
+    ,"averageAttempts":1
+    ,"successfulAttempts":1
+    ,"failureAttempts":1
+    ,"testEnvironment":"JAVA_JUNIT"
+    }
+>--------------------------------------------------------<

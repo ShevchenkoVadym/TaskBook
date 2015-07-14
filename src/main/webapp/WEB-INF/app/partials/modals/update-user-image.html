@@ -1,0 +1,43 @@
+<div class="ngdialog-message text-center">
+  <form class="form-horizontal" name="formUploadUserImg">
+    <div class="form-group text-center">
+      <div class="user-img-wrap">
+        <img ng-src="{{!user.imageUrl ? 'assets/img/user_photo_male.png' : user.imageUrl}}" class="img-thumbnail user-img">
+      </div>
+    </div>
+    <div class="form-group text-center" ng-hide="show_loader">
+      <div class="col-md-3" ng-show="!userImg">
+        <div class="fileUpload btn btn-default">
+          <span>Выбрать</span>
+          <input type="file" file-model="userImg" class="upload" />
+        </div>
+      </div>
+      <div class="col-md-3" ng-show="!!userImg">
+        <input class="btn btn-primary" ng-click="uploadUserImage(userImg)" type="submit" value="Загрузить" ng-disabled="userImg == undefined" />
+      </div>
+      <div ng-if="user.imageUrl != ''">
+        <div class="col-md-4">
+          <input type="text" ng-model="userImg.name" class="form-control" readonly>
+        </div>
+        <div class="col-md-4">
+          <button  class="btn btn-danger" ng-click="deleteImage()">
+            Удалить изображение
+          </button>
+        </div>
+      </div>
+      <div ng-if="user.imageUrl == ''">
+        <div class="col-md-8">
+          <input type="text" ng-model="userImg.name" readonly>
+        </div>
+      </div>
+    </div>
+    <div class="form-group text-center" ng-show="show_loader">
+      <div class="col-md-12">
+        <img src="assets/img/ajax-loader.gif" style="max-height: 34px;">
+      </div>
+    </div>
+  </form>
+  <div style="text-align: left;">
+    <div ng-include src="'partials/forms/_form-messages.html'"></div>
+  </div>
+</div>

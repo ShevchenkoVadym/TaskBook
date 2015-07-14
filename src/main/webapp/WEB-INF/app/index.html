@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" ng-app="taskbookApp">
+<head>
+  <meta charset="utf-8">
+  <title>Practice Java Programming</title>
+
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico" />
+
+  <!-- Minified CSS -->
+  <link href="assets/css/styles.min.css" rel="stylesheet" />
+
+  <!-- Vendor JS files -->
+  <script src="js/vendor.js"></script>
+
+  <!--Google Api-->
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+
+  <!-- App -->
+  <script src="js/app.js"></script>
+</head>
+<body>
+<!-- Header -->
+<div ng-include src="'partials/header.html'"></div>
+
+<!-- Page content -->
+<div class="container">
+
+  <noscript>
+    <div class="row" style="background: #FFA500">
+      В вашем браузере отключён JavaScript. Пожалуйста,
+      <a href="http://www.enable-javascript.com/ru/">включите его.</a>
+    </div>
+  </noscript>
+
+  <!-- Alerts -->
+  <div class="alert alert-info flash-message" ng-show="flash.getMessage()">
+    <span class="glyphicon glyphicon-info-sign"></span> {{flash.getMessage()}}
+  </div>
+
+  <div ng-view id="main-frame"></div>
+
+  <div id="global-loader" class="text-center global-loader-container loader-hidden">
+    <img src="assets/img/global_loader.gif" class="global-loader">
+  </div>
+
+</div>
+
+<!-- Footer -->
+<div ng-include src="'partials/footer.html'"></div>
+</body>
+</html>

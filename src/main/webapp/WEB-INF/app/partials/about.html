@@ -1,0 +1,92 @@
+<div id="about-page">
+  <h3>Добро пожаловать!</h3>
+
+  <div class="row">
+    <div class="col-md-8">
+      Хотите научиться программировать на языке Java? Или укрепить уже существующие навыки?
+      Тогда вы попали по адресу! Сайт содержит множество задач
+      <!--{{totalTasks}}-->
+      <!--<span ng-switch="getLastTaskCount()">-->
+        <!--<span ng-switch-when="1">-->
+          <!--задачу-->
+        <!--</span>-->
+        <!--<span ng-switch-when="2">-->
+          <!--задачи-->
+        <!--</span>-->
+        <!--<span ng-switch-default>-->
+          <!--задач-->
+        <!--</span>-->
+      <!--</span>-->
+      различного уровня сложности: от самых
+      простых для начинающих и до очень сложных для профессинальных разработчиков.
+    </div>
+    <div class="col-md-4">
+      <a href="#/tasks">
+        <img src="assets/img/about/tasks.png">
+      </a>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-4">
+      <a href="#/tasks/new">
+        <img src="assets/img/about/add_task.png" style="width: 90%;">
+      </a>
+    </div>
+    <div>
+      Знаете интересную задачу для решения на языке Java? Поделитесь ею с нами!
+      Для добавления задачи на сайт нужно написать компилирующийся исходный код
+      решения и несколько тестов к нему на JUnit или TestNG.
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row middle">
+    <div class="col-md-4">
+      Проверка решения происходит на сервере
+    </div>
+    <div class="col-md-4">
+      <img src="assets/img/about/success.png" style="width: 100%;">
+    </div>
+    <div class="col-md-4">
+      <img src="assets/img/about/fail.png" style="width: 90%;">
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row middle">
+    <div class="col-md-6">
+      За каждую решенную или добавленную на сайт задачу начисляется рейтинг
+    </div>
+    <div class="col-md-6">
+      <img src="assets/img/about/rating.png" style="width: 100%;">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <button class="btn btn-primary btn-lg" ng-click="randomTask()">Решить задачу!</button>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-8">
+      Проект выполнен студентами <a href="http://javarush.ru">JavaRush.ru</a> JavaRush - играй и учи Java одновременно.
+
+      <ul style="list-style: none">
+        <li ng-repeat="dev in developers">
+          <a href="{{dev.profile}}">{{dev.name}}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      Возник вопрос? <button class="btn btn-warning" ng-click="openContactForm()">Задай его нам!</button>
+    </div>
+  </div>
+</div>

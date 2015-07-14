@@ -1,0 +1,38 @@
+<div class="vertical-middle" style="margin-top: 15px;">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Форма обратной связи</h2>
+      </div>
+      <div ng-controller="ContactController" class="panel-body">
+        <form name="contactform" class="form-horizontal" role="form">
+          <div class="form-group" ng-class="{ 'has-error': contactform.inputEmail.$invalid && submitted }">
+            <!--<label for="inputEmail" class="col-md-3 control-label">Эл. почта</label>-->
+            <div class="col-md-12">
+              <input ng-model="formData.inputEmail" type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Адрес эл. почты" required>
+            </div>
+          </div>
+          <div class="form-group" ng-class="{ 'has-error': contactform.inputSubject.$invalid && submitted }">
+            <!--<label for="inputSubject" class="col-md-3 control-label">Тема</label>-->
+            <div class="col-md-12">
+              <input ng-model="formData.inputSubject" type="text" class="form-control" id="inputSubject" name="inputSubject" placeholder="Тема сообщения" required>
+            </div>
+          </div>
+          <div class="form-group" ng-class="{ 'has-error': contactform.inputMessage.$invalid && submitted }">
+            <!--<label for="inputMessage" class="col-md-3 control-label">Сообщение</label>-->
+            <div class="col-md-12">
+              <textarea ng-model="formData.inputMessage" class="form-control" rows="4" id="inputMessage" name="inputMessage" placeholder="Текст сообщения..." required></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-12 text-center">
+              <button class="btn btn-default" ng-click="submit()" ng-hide="sendInProgress">
+                Отправить
+              </button>
+              <img ng-show="sendInProgress" src="assets/img/ajax-loader.gif" class="loader">
+            </div>
+          </div>
+        </form>
+        <div class="alert text-center" ng-class="{'alert-danger': !result.success, 'alert-success': result.success }" style="padding: 15px; margin: 0;" ng-show="result.done">{{ result.message }}</div>
+      </div>
+    </div>
+</div>

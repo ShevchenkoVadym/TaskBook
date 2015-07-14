@@ -1,0 +1,110 @@
+<div class="ngdialog-message">
+  <h5>Изменение профиля:</h5>
+  
+  <div style="text-align: left;">
+    <div ng-include src="'partials/forms/_form-messages.html'"></div>
+  </div>
+
+  <form name="formUpdateUser" class="form-horizontal text-center">
+    <div class="form-group">
+      <div class="col-sm-12">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-user"></span>
+          </span>
+          <input type="text" ng-model="user.username" class="form-control" name="username" required ng-disabled="true" />
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-12">
+        <div class="has-feedback" ng-class="{'has-error': formUpdateUser.email.$invalid, 'has-success': !formUpdateUser.email.$invalid}">
+          <div class="input-group">
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-envelope"></span>
+            </span>
+            <input type="email" ng-model="user.email" placeholder="Эл.почта" class="form-control" name="email" required />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-12">
+        <div class="has-feedback has-success">
+          <div class="input-group">  
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-globe"></span>
+            </span>
+            <select ng-model="user.country" ng-options="country as country for country in countries" class="form-control"></select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-12">
+        <b>Изменение пароля</b> <i>(оставте поля пустыми, если не хотите менять пароль)</i>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-12">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-lock"></span>
+          </span>
+          <input type="password" ng-model="current_password" placeholder="Текущий пароль" class="form-control" name="password" />
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-12">
+        <div class="has-feedback" ng-class="{'has-error': formUpdateUser.new_password.$invalid || new_password != password_verify, 'has-success': !formUpdateUser.new_password.$invalid && new_password === password_verify}">
+          <div class="input-group">
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-lock"></span>
+            </span>
+            <input type="password" ng-model="new_password" equals="{{password_verify}}" placeholder="Новый пароль" class="form-control" name="new_password" ng-disabled="current_password === undefined || current_password.length === 0" />
+          </div>
+
+          <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="!formUpdateUser.new_password.$invalid && new_password === password_verify"></span>
+          <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="formUpdateUser.new_password.$invalid || new_password != password_verify"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-12">
+        <div class="has-feedback" ng-class="{'has-error': formUpdateUser.password_verify.$invalid || (new_password !== password_verify), 'has-success': !formUpdateUser.password_verify.$invalid}">
+          <div class="input-group">
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-lock"></span>
+            </span>
+            <input type="password" ng-model="password_verify" equals="{{new_password}}" placeholder="Подтверждение нового пароля" class="form-control" name="password_verify" ng-disabled="current_password === undefined || current_password.length === 0"/>
+          </div>
+
+          <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="!formUpdateUser.password_verify.$invalid"></span>
+          <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="formUpdateUser.password_verify.$invalid"></span>
+
+          <div class="text-center" ng-show="new_password != password_verify" style="color: red;">Пароль и подтверждение должны совпадать</div>
+        </div>
+      </div>
+    </div>
+
+    <!--
+    <div class="form-group">
+      <h5>Изменение пароля:</h5>
+    </div>
+    -->
+
+    <div class="form-group">
+      <div class="col-sm-12 text-center">
+        <input type="submit" ng-click="updateUser(user, current_password, new_password);" class="btn btn-sm btn-success" value="Обновить" ng-disabled="formUpdateUser.$invalid || (new_password !== password_verify)" />
+      </div>
+    </div>
+  </form>
+  
+</div>

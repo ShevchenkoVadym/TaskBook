@@ -1,0 +1,114 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:ehcache="http://www.springframework.org/schema/cache"
+       xmlns:cache="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/tx
+         http://www.springframework.org/schema/tx/spring-tx.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/jdbc
+         http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+         http://www.springframework.org/schema/data/jpa
+         http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+         http://www.springframework.org/schema/cache
+         http://www.springframework.org/schema/cache/spring-cache.xsd
+         http://www.springframework.org/schema/task
+         http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <tx:annotation-driven/>
+
+    <ehcache:annotation-driven/>
+
+    <jpa:repositories base-package="ru.javarush.taskbook.repository"/>
+
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="ehcache"/>
+    </bean>
+
+    <bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:ehcache.xml"/>
+        <property name="shared" value="true"/>
+    </bean>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${database.driverClassName}"/>
+        <property name="jdbcUrl" value="${database.url}"/>
+        <property name="user" value="${database.username}"/>
+        <property name="password" value="${database.password}"/>
+        <property name="initialPoolSize" value="${c3p0.initialPoolSize}"/>
+        <property name="minPoolSize" value="${c3p0.minPoolSize}"/>
+        <property name="maxPoolSize" value="${c3p0.maxPoolSize}"/>
+        <property name="testConnectionOnCheckin" value="${c3p0.testConnectionOnCheckin}"/>
+        <property name="idleConnectionTestPeriod" value="${c3p0.idleConnectionTestPeriod}"/>
+        <property name="maxIdleTimeExcessConnections" value="${c3p0.maxIdleTimeExcessConnections}"/>
+    </bean>
+
+    <!-- As an alternative, for embedded databases see <jdbc:embedded-database/>. -->
+    <!--<jdbc:initialize-database data-source="dataSource" enabled="${database.init}">-->
+        <!--<jdbc:script location="classpath:db/init_mysql_db.sql"/>-->
+        <!--<jdbc:script location="classpath:db/populate_mysql_db.sql"/>-->
+    <!--</jdbc:initialize-database>-->
+
+    <!--<bean class="ru.javarush.taskbook.util.DbPopulator">-->
+        <!--<constructor-arg name="scriptLocation" value="classpath:db/populate_test_mysql_db.sql"/>-->
+    <!--</bean>-->
+
+<!--
+    <bean id = "sessionFactory" class = "org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name = "dataSource" ref = "dataSource"/>
+        <property name = "packagesToScan" value="ru.javarush.taskbook.model" />
+        <property name = "hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+                <prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
+                <prop key="hibernate.connection.pool_size">${hibernate.connection.pool_size}</prop>
+                <prop key="hibernate.connection.useUnicode">${hibernate.connection.useUnicode}</prop>
+                <prop key="hibernate.connection.characterEncoding">${hibernate.connection.characterEncoding}</prop>
+                <prop key="hibernate.connection.charSet">${hibernate.connection.CharSet}</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+-->
+
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <!--<property name="showSql" value="true"/>
+        <property name="generateDdl" value="true"/>
+        <property name="database" value="MYSQL"/>-->
+    </bean>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+                <prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+                <prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop>
+                <!--useful for debugging-->
+                <!--<prop key="hibernate.generate_statistics">true</prop>-->
+            </props>
+        </property>
+
+        <!-- spring based scanning for entity classes-->
+        <property name="packagesToScan" value="ru.javarush.taskbook.model"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+
+    </bean>
+
+</beans>

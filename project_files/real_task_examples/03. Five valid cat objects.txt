@@ -1,0 +1,176 @@
+Название задачи
+>--------------------------------------------------------<
+Создать класс Cat (кот) с пятью конструкторами
+>--------------------------------------------------------<
+
+Условие задачи:
+>--------------------------------------------------------<
+Создать класс Cat (кот) с пятью конструкторами:
+- Имя,
+- Имя, вес, возраст
+- Имя, возраст (вес стандартный)
+- вес, цвет, (имя, адрес и возраст – неизвестные. Кот - бездомный)
+- вес, цвет, адрес ( чужой домашний кот)
+
+Задача инициализатора – сделать объект валидным. Например, если вес не известен, то нужно указать какой-нибудь средний вес.
+
+Кот не может ничего не весить. То же касательно возраста. А вот имени может и не быть (null). То же касается адреса: null.
+>--------------------------------------------------------<
+
+Эталонное решение задачи:
+>--------------------------------------------------------<
+public class Cat
+{
+    private String name;
+    private int weight;
+    private int age;
+    private int color;
+    private String address;
+
+    public static final int STANDARD_WEIGHT = 2;
+    public static final int STANDARD_AGE = 5;
+
+    public Cat(String name) {
+        this.name = name;
+        this.weight = STANDARD_WEIGHT;
+        this.age = STANDARD_AGE;
+    }
+
+    public Cat(String name, int weight, int age) {
+        this.name = name;
+        this.weight = weight;
+        this.age = age;
+    }
+
+    public Cat(String name, int age) {
+        this.name = name;
+        this.weight = STANDARD_WEIGHT;
+        this.age = age;
+    }
+
+    public Cat(int weight, int color) {
+        this.weight = weight;
+        this.color = color;
+        this.age = STANDARD_AGE;
+    }
+
+    public Cat(int weight, int color, String address) {
+        this.weight = weight;
+        this.color = color;
+        this.address = address;
+        this.age = STANDARD_AGE;
+    }
+
+}
+>--------------------------------------------------------<
+
+Шаблон задачи:
+>--------------------------------------------------------<
+public class Cat
+{
+    private String name;
+    private int weight;
+    private int age;
+    private int color;
+    private String address;
+
+
+    public Cat(String name) {
+        this.name = name;
+    }
+
+    public Cat(String name, int weight, int age) {
+        this.name = name;
+        this.weight = weight;
+        this.age = age;
+    }
+
+    public Cat(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public Cat(int weight, int color) {
+        this.weight = weight;
+        this.color = color;
+    }
+
+    public Cat(int weight, int color, String address) {
+        this.weight = weight;
+        this.color = color;
+        this.address = address;
+    }
+
+}
+>--------------------------------------------------------<
+
+Тесты:
+>--------------------------------------------------------<
+import org.junit.Test;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+
+import static org.junit.Assert.assertTrue;
+
+public class CatTest {
+
+    @Test
+    public void testNumberConstructors() throws Exception {
+        Constructor[] constructors = Cat.class.getConstructors();
+        assertTrue("The number of constructors must be equals 5", constructors.length == 5);
+    }
+
+    @Test
+    public void testValidObjects() throws Exception {
+        // http://www.java2s.com/Code/Java/Reflection/ObjectReflectioninvokeconstructorwithparameters.htm
+
+        int AVG_AGE = 2;
+        int AVG_WEIGHT = 4;
+
+        Cat[] cats = new Cat[5];
+        cats[0] = new Cat(null);
+        cats[1] = new Cat(null, AVG_WEIGHT, AVG_AGE);
+        cats[2] = new Cat(null, AVG_AGE);
+        cats[3] = new Cat(AVG_WEIGHT, 0);
+        cats[4] = new Cat(AVG_WEIGHT, 0, null);
+
+        Field weightField = Cat.class.getDeclaredField("weight");
+        Field ageField = Cat.class.getDeclaredField("age");
+
+        weightField.setAccessible(true);
+        ageField.setAccessible(true);
+
+        for (Cat cat : cats) {
+            assertTrue("The cat's weight must be setted", weightField.getInt(cat) > 0);
+            assertTrue("The cat's age must be setted", ageField.getInt(cat) > 0);
+        }
+    }
+}
+>--------------------------------------------------------<
+
+Json with inner formatting received from frontend (with some ONE LINE COMMENTS):
+>--------------------------------------------------------<
+{
+     "_class"    : "ru.javarush.taskbook.model.Task"
+    ,"author":"sashok"
+    ,"tags":["cat","конструкторы","класс"]
+    ,"authorityName":"sashok"
+    ,"creationDate": "2014-12-31T00:00:01.001Z"
+    ,"lastModificationDate": "2014-12-31T00:00:01.001Z"
+    ,"approvalDate": "2014-12-31T00:00:01.001Z"
+    ,"lifeStage":"APPROVED"
+    ,"level":"JUNIOR"
+    ,"taskName":"Создать класс Cat (кот) с пятью конструкторами"
+    ,"condition":"Создать класс Cat (кот) с пятью конструкторами:\n- Имя,\n- Имя, вес, возраст\n- Имя, возраст (вес стандартный)\n- вес, цвет, (имя, адрес и возраст – неизвестные. Кот - бездомный)\n- вес, цвет, адрес ( чужой домашний кот)\n\nЗадача инициализатора – сделать объект валидным. Например, если вес не известен, то нужно указать какой-нибудь средний вес.\n\nКот не может ничего не весить. То же касательно возраста. А вот имени может и не быть (null). То же касается адреса: null."
+    ,"sourceCode":"public class Cat\n{\n    private String name;\n    private int weight;\n    private int age;\n    private int color;\n    private String address;\n\n    public static final int STANDARD_WEIGHT = 2;\n    public static final int STANDARD_AGE = 5;\n\n    public Cat(String name) {\n        this.name = name;\n        this.weight = STANDARD_WEIGHT;\n        this.age = STANDARD_AGE;\n    }\n\n    public Cat(String name, int weight, int age) {\n        this.name = name;\n        this.weight = weight;\n        this.age = age;\n    }\n\n    public Cat(String name, int age) {\n        this.name = name;\n        this.weight = STANDARD_WEIGHT;\n        this.age = age;\n    }\n\n    public Cat(int weight, int color) {\n        this.weight = weight;\n        this.color = color;\n        this.age = STANDARD_AGE;\n    }\n\n    public Cat(int weight, int color, String address) {\n        this.weight = weight;\n        this.color = color;\n        this.address = address;\n        this.age = STANDARD_AGE;\n    }\n\n}"
+    ,"templateCode":"public class Cat\n{\n    private String name;\n    private int weight;\n    private int age;\n    private int color;\n    private String address;\n\n\n    public Cat(String name) {\n        this.name = name;\n    }\n\n    public Cat(String name, int weight, int age) {\n        this.name = name;\n        this.weight = weight;\n        this.age = age;\n    }\n\n    public Cat(String name, int age) {\n        this.name = name;\n        this.age = age;\n    }\n\n    public Cat(int weight, int color) {\n        this.weight = weight;\n        this.color = color;\n    }\n\n    public Cat(int weight, int color, String address) {\n        this.weight = weight;\n        this.color = color;\n        this.address = address;\n    }\n\n}"
+    ,"tests":"import org.junit.Test;\nimport java.lang.reflect.Constructor;\nimport java.lang.reflect.Field;\n\nimport static org.junit.Assert.assertTrue;\n\npublic class CatTest {\n\n    @Test\n    public void testNumberConstructors() throws Exception {\n        Constructor[] constructors = Cat.class.getConstructors();\n        assertTrue(\"The number of constructors must be equals 5\", constructors.length == 5);\n    }\n\n    @Test\n    public void testValidObjects() throws Exception {\n        // http://www.java2s.com/Code/Java/Reflection/ObjectReflectioninvokeconstructorwithparameters.htm\n\n        int AVG_AGE = 2;\n        int AVG_WEIGHT = 4;\n\n        Cat[] cats = new Cat[5];\n        cats[0] = new Cat(null);\n        cats[1] = new Cat(null, AVG_WEIGHT, AVG_AGE);\n        cats[2] = new Cat(null, AVG_AGE);\n        cats[3] = new Cat(AVG_WEIGHT, 0);\n        cats[4] = new Cat(AVG_WEIGHT, 0, null);\n\n        Field weightField = Cat.class.getDeclaredField(\"weight\");\n        Field ageField = Cat.class.getDeclaredField(\"age\");\n\n        weightField.setAccessible(true);\n        ageField.setAccessible(true);\n\n        for (Cat cat : cats) {\n            assertTrue(\"The cat's weight must be setted\", weightField.getInt(cat) > 0);\n            assertTrue(\"The cat's age must be setted\", ageField.getInt(cat) > 0);\n        }\n    }\n}"
+    ,"rating":28
+    ,"likedBy":["Populator", "beast"]
+    ,"dislikedBy":["sashok"]
+    ,"votersAmount":3
+    ,"averageAttempts":18.53
+    ,"successfulAttempts":5
+    ,"failureAttempts":7
+}
+>--------------------------------------------------------<

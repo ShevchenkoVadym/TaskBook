@@ -1,0 +1,57 @@
+<h3 class="user-header">{{user.fullName || user.username}}</h3>
+<div class="row">
+  <div class="col-md-3 text-center" style="border-right: 1px solid #eaeaea">
+      <div class="user-image-wrap">
+        <img ng-src="{{!user.imageUrl ? 'assets/img/user_photo_male.png' : user.imageUrl }}" class="img-thumbnail user-img">
+      </div>
+      <h2><b>{{user.rating}}</b></h2>
+      <h5>рейтинг</h5>
+  </div>
+  <div class="col-md-9">
+      <table class="left-align">
+          <tbody>
+          <tr>
+              <td class="text-muted"><i>О пользователе&nbsp;&nbsp;</i></td>
+              <td>Никнейм:</td>
+              <td>{{user.username}}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>Откуда:</td>
+            <td>
+                <img ng-src="assets/img/flags/16/{{user.country + '.png'}}" ng-if="user.country">
+                <span class="glyphicon glyphicon-question-sign" ng-if="!user.country"></span>
+                <small>{{user.country}}</small>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>Зарегистрирован:</td>
+            <td>{{user.creationDate | datestamp}}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>Последний визит:</td>
+            <td>{{user.lastVisit | datestamp}} {{user.lastVisit | timestamp}}</td>
+          </tr>
+          <tr>
+            <td class="text-muted"><i>Статистика</i></td>
+            <td style="width:150px;">Задач решено:</td>
+            <td>
+              {{totalItemsSolved || 0}}
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>Задач добавлено:</td>
+            <td>
+              {{totalItemsAdded || 0}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
+<div class="row" style="border-top: 1px solid #EEE; margin-top: 10px;">
+  <div ng-include src="'partials/users/_user_tabs.html'"></div>
+</div>

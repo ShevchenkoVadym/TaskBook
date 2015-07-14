@@ -1,0 +1,16 @@
+#!/bin/bash
+rm -rf work
+mkdir work
+
+# Get secure page with cookies
+# Before using this command
+# you must make some cookies
+# with a script post-login-as-alex-make-cookies
+wget --directory-prefix=work    \
+    --output-file=work/log.txt  \
+    --save-headers              \
+    --load-cookies cookies.txt  \
+    --keep-session-cookies      \
+    http://localhost:8080/rest/users/me
+
+cat -n cookies.txt work/* | less

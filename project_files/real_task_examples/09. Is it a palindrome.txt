@@ -1,0 +1,71 @@
+Название задачи
+>--------------------------------------------------------<
+Является ли строка палиндромом
+>--------------------------------------------------------<
+
+Условие задачи:
+>--------------------------------------------------------<
+Реализовать метод, проверяющий является ли переданная строка палиндромом.
+Из указанной строки были предварительно убраны все пробельные символы и знаки препинания.
+
+Примеры палиндрома:
+* a
+* aba
+* арозаупалаНалапуазора
+>--------------------------------------------------------<
+
+Эталонное решение задачи:
+>--------------------------------------------------------<
+public class Solution {
+
+    public static boolean isPalindrome(String str) {
+        if (str == null)
+            return false;
+
+        StringBuilder sb = new StringBuilder(str);
+
+        sb.reverse();
+
+        return str.equals(sb.toString());
+    }
+
+}
+>--------------------------------------------------------<
+
+Шаблон задачи:
+>--------------------------------------------------------<
+public class Solution {
+
+    public static boolean isPalindrome(String str) {
+        // Insert your code here
+    }
+
+}
+>--------------------------------------------------------<
+
+Теги:
+>--------------------------------------------------------<
+Палиндром, Строковые алгоритмы, Строки
+>--------------------------------------------------------<
+
+Тесты:
+>--------------------------------------------------------<
+import org.junit.Test;
+import junit.framework.Assert;
+
+public class SolutionTest {
+
+    @Test
+    public void testIsPalindrome() {
+
+        Assert.assertTrue  (Solution.isPalindrome("a"));
+        Assert.assertTrue  (Solution.isPalindrome("aa"));
+        Assert.assertTrue  (Solution.isPalindrome("ArozaupalaNalapuazorA"));
+
+        Assert.assertFalse (Solution.isPalindrome("abc"));
+        Assert.assertFalse (Solution.isPalindrome("Arozaupalanalapuazora"));
+
+    }
+
+}
+>--------------------------------------------------------<

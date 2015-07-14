@@ -1,0 +1,131 @@
+Название задачи
+>--------------------------------------------------------<
+Список из массивов чисел
+>--------------------------------------------------------<
+
+Условие задачи:
+>--------------------------------------------------------<
+Создать список, элементами которого будут массивы чисел. Добавить в список пять
+объектов–массивов длиной 5, 2, 4, 7, 0 соответственно. Заполнить массивы любыми
+данными и вывести их на экран.
+>--------------------------------------------------------<
+
+Эталонное решение задачи:
+>--------------------------------------------------------<
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Solution
+{
+    public static void main(String[] args)
+    {
+        ArrayList<int[]> list = createList();
+        printList(list);
+    }
+
+    public static ArrayList<int[]> createList()
+    {
+        //Написать тут ваш код
+        ArrayList<int[]> list = new ArrayList<int[]>();
+        int[] array1 = {1 , 2 , 3 , 4 , 5 };
+        int[] array2 = {6 , 7};
+        int[] array3 = {8 , 9 , 10 , 11};
+        int[] array4 = {12, 13, 14, 15, 16, 17, 18};
+        int[] array5 = new int[0];
+        Collections.addAll(list , array1 , array2 , array3 , array4 , array5);
+        return list;
+    }
+
+    public static void printList(ArrayList<int[]> list)
+    {
+        for (int[] array: list )
+        {
+            for (int x: array)
+            {
+                System.out.println(x);
+            }
+        }
+    }
+}
+
+>--------------------------------------------------------<
+
+Шаблон задачи:
+>--------------------------------------------------------<
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Solution
+{
+    public static void main(String[] args)
+    {
+        ArrayList<int[]> list = createList();
+        printList(list);
+    }
+
+    public static ArrayList<int[]> createList()
+    {
+        //Написать тут ваш код
+
+    }
+
+    public static void printList(ArrayList<int[]> list)
+    {
+        for (int[] array: list )
+        {
+            for (int x: array)
+            {
+                System.out.println(x);
+            }
+        }
+    }
+}
+
+>--------------------------------------------------------<
+
+Тесты:
+>--------------------------------------------------------<
+import org.junit.Test;
+
+import java.util.ArrayList;
+import static org.junit.Assert.assertEquals;
+
+public class SolutionTest {
+
+    @Test
+    public void testCreateList() throws Exception {
+        ArrayList<int[]> list = Solution.createList();
+        assertEquals(list.get(0).length , 5);
+        assertEquals(list.get(1).length , 2 );
+        assertEquals(list.get(2).length , 4);
+        assertEquals(list.get(3).length , 7);
+        assertEquals(list.get(4).length , 0);
+    }
+}
+>--------------------------------------------------------<
+
+Json with inner formatting received from frontend (with some ONE LINE COMMENTS):
+>--------------------------------------------------------<
+{
+        "_class"    : "ru.javarush.taskbook.model.Task"
+    ,"author":"mary"
+    ,"tags":["Коллекции","массивы"]
+    ,"authorityName":"mary"
+    ,"creationDate": "2015-02-10T00:00:01.001Z"
+    ,"lastModificationDate": "2015-02-21T00:00:01.001Z"
+    ,"approvalDate": "2015-02-21T00:00:01.001Z"
+    ,"lifeStage":"APPROVED"
+    ,"level":"JUNIOR"
+    ,"taskName":"Список из массивов чисел"
+    ,"condition":"Создать список, элементами которого будут массивы чисел. Добавить в список пять объектов–массивов длиной 5, 2, 4, 7, 0 соответственно. Заполнить массивы любыми данными и вывести их на экран."
+    ,"sourceCode":"import java.util.ArrayList;\n   import java.util.Collections;\n\n   public class Solution\n {\n   public static void main(String[] args)\n  {\n  ArrayList<int[]> list = createList();\n  printList(list);\n }\n\n  public static ArrayList<int[]> createList()\n  {\n   //Написать тут ваш код\n   ArrayList<int[]> list = new ArrayList<int[]>();\n  int[] array1 = {1 , 2 , 3 , 4 , 5 };\n  int[] array2 = {6 , 7};\n  int[] array3 = {8 , 9 , 10 , 11};\n  int[] array4 = {12, 13, 14, 15, 16, 17, 18};\n  int[] array5 = new int[0];\n  Collections.addAll(list , array1 , array2 , array3 , array4 , array5);\n  return list;\n }\n\n   public static void printList(ArrayList<int[]> list)\n   {\n     for (int[] array: list )\n  {\n      for (int x: array)\n  {\n     System.out.println(x);\n  }\n }\n }\n }"
+    ,"templateCode":"import java.util.ArrayList;\n  import java.util.Collections;\n\n   public class Solution\n {\n   public static void main(String[] args)\n  {\n     ArrayList<int[]> list = createList();\n  printList(list);\n }\n\n  public static ArrayList<int[]> createList()\n  {\n    //Написать тут ваш код\n\n  }\n\n  public static void printList(ArrayList<int[]> list)\n  {\n     for (int[] array: list )\n  {\n      for (int x: array)\n  {\n      System.out.println(x);\n  }\n }\n }\n }"
+    ,"tests":"import org.junit.Test;\n\n  import java.util.ArrayList;\n  import static org.junit.Assert.assertEquals;\n\n    public class SolutionTest {\n\n  @Test\n   public void testCreateList() throws Exception {\n   ArrayList<int[]> list = Solution.createList();\n  assertEquals(list.get(0).length , 5);\n  assertEquals(list.get(1).length , 2 );\n  assertEquals(list.get(2).length , 4);\n  assertEquals(list.get(3).length , 7);\n  assertEquals(list.get(4).length , 0);\n  }\n }"
+    ,"rating":1
+    ,"votersAmount":1
+    ,"averageAttempts":1
+    ,"successfulAttempts":1
+    ,"failureAttempts":1
+    ,"testEnvironment":"JAVA_JUNIT"
+    }
+>--------------------------------------------------------<

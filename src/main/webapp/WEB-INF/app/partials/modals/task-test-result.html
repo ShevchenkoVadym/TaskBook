@@ -1,0 +1,86 @@
+<div style="margin-top: 15px;">
+
+  <div ng-switch="ngDialogData.compilation">
+    <div ng-switch-when="FAILURE">
+      <div class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        <span ng-if="ngDialogData.not_saved != undefined">
+          Не удалось сохранить задачу.
+        </span>
+        Код решения не компилируется:
+        <br><br>
+        <small>
+          {{ngDialogData.answer}}
+        </small>
+      </div>
+    </div>
+
+    <div ng-switch-when="OK">
+      <div ng-if="ngDialogData.tests == 'FAILURE' || ngDialogData.tests == 'Error'">
+        <div class="alert alert-danger" role="alert">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          <span ng-if="ngDialogData.not_saved != undefined">
+            Не удалось сохранить задачу.
+          </span>
+          <span ng-switch="ngDialogData.random">
+            <span ng-switch-when="1">
+              Решение не прошло тестирование.
+            </span>
+            <span ng-switch-when="2">
+              Решение не засчитано. Решение не прошло тестирование.
+            </span>
+            <span ng-switch-when="3">
+              Решение не засчитано. Все ли условия задачи выполнены?
+            </span>
+            <span ng-switch-default>
+              Решение не засчитано. Представь что ты физик ядерщик и от твоего кода зависит жизнь миллионов людей.
+              Перепроверь свое решение еще раз.
+            </span>
+          </span>
+          <br><br>
+          <small>
+            {{ngDialogData.answer}}
+          </small>
+        </div>
+      </div>
+
+      <div ng-if="ngDialogData.tests == 'OK'">
+        <div class="alert alert-success" role="alert">
+          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+          <span ng-switch="ngDialogData.statusCode">
+            <span ng-switch-when="201">
+              Задача успешно сохранена!
+              <br/>
+              <span ng-if="isRegular()">
+                И будет опубликована после проверки модератором.
+              </span>
+            </span>
+            <span ng-switch-when="200">
+              Задача успешно обновлена!
+              <br/>
+              <span ng-if="isRegular()">
+                <small>И будет опубликована после проверки модератором.</small>
+              </span>
+            </span>
+            <span ng-switch-default>
+              Задача успешно прошла тестирование!
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div ng-switch-when="NO_ANSWER">
+      <div class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        <span ng-if="ngDialogData.statusCode === 503">
+          Не удалось получить ответ от сервера.
+        </span>
+        <span ng-if="ngDialogData.statusCode !== 503">
+          {{ ngDialogData.answer }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+</div>

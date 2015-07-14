@@ -1,0 +1,115 @@
+Название задачи
+>--------------------------------------------------------<
+Конструкторы для Rectangle
+>--------------------------------------------------------<
+
+Условие задачи:
+>--------------------------------------------------------<
+Создать класс прямоугольник (Rectangle).
+Его данными будут top, left, width, height (левая координата, верхняя, ширина и высота).
+Создать для него как можно больше конструкторов:
+Примеры:
+-    заданы 4 параметра: left, top, width, height
+-    ширина/высота не задана (оба равны 0)
+-    высота не задана (равно ширине) создаём квадрат
+-    создаём копию другого прямоугольника (он и передаётся в параметрах)
+>--------------------------------------------------------<
+
+Эталонное решение задачи:
+>--------------------------------------------------------<
+public class Rectangle
+{
+    private int left;
+    private int top;
+    private int width;
+    private int height;
+
+    public Rectangle(int side_len) {
+        this.width = side_len;
+        this.height = side_len;
+    }
+
+    public Rectangle(int left, int top) {
+        this.left = left;
+        this.top = top;
+    }
+
+    public Rectangle(int left, int top, int side_len) {
+        this.left = left;
+        this.top = top;
+        this.width = side_len;
+        this.height = side_len;
+    }
+
+    public Rectangle(int left, int top, int width, int height) {
+        this.left = left;
+        this.top = top;
+        this.height = height;
+        this.width = width;
+    }
+
+    public Rectangle(Rectangle r) {
+        this.left = r.left;
+        this.top = r.top;
+        this.height = r.height;
+        this.width = r.width;
+    }
+}
+>--------------------------------------------------------<
+
+Шаблон задачи:
+>--------------------------------------------------------<
+public class Rectangle
+{
+    private int left;
+    private int top;
+    private int width;
+    private int height;
+
+    // Insert your code here
+
+}
+>--------------------------------------------------------<
+
+Тесты:
+>--------------------------------------------------------<
+import org.junit.Test;
+import java.lang.reflect.Constructor;
+
+import static org.junit.Assert.assertTrue;
+
+public class RectangleTest {
+
+    @Test
+    public void test() throws Exception {
+        Constructor[] constructors = Rectangle.class.getConstructors();
+        assertTrue("The number of constructors must be greater or equals 4", constructors.length > 3);
+    }
+}
+>--------------------------------------------------------<
+
+Json with inner formatting received from frontend (with some ONE LINE COMMENTS):
+>--------------------------------------------------------<
+{
+     "_class"    : "ru.javarush.taskbook.model.Task"
+    ,"author":"mary"
+    ,"tags":["класс","конструкторы"]
+    ,"authorityName":"alex"
+    ,"creationDate": "2014-12-31T00:00:01.001Z"
+    ,"lastModificationDate": "2014-12-31T00:00:01.001Z"
+    ,"approvalDate": "2014-12-31T00:00:01.001Z"
+    ,"lifeStage":"APPROVED"
+    ,"level":"BEGINNER"
+    ,"taskName":"Конструкторы для Rectangle"
+    ,"condition":"Создать класс прямоугольник (Rectangle).\nЕго данными будут top, left, width, height (левая координата, верхняя, ширина и высота).\nСоздать для него как можно больше конструкторов:\nПримеры:\n-    заданы 4 параметра: left, top, width, height\n-    ширина/высота не задана (оба равны 0)\n-    высота не задана (равно ширине) создаём квадрат\n-    создаём копию другого прямоугольника (он и передаётся в параметрах)","sourceCode":"public class Rectangle\n{\n    private int left;\n    private int top;\n    private int width;\n    private int height;\n\n    public Rectangle(int side_len) {\n        this.width = side_len;\n        this.height = side_len;\n    }\n\n    public Rectangle(int left, int top) {\n        this.left = left;\n        this.top = top;\n    }\n\n    public Rectangle(int left, int top, int side_len) {\n        this.left = left;\n        this.top = top;\n        this.width = side_len;\n        this.height = side_len;\n    }\n\n    public Rectangle(int left, int top, int width, int height) {\n        this.left = left;\n        this.top = top;\n        this.height = height;\n        this.width = width;\n    }\n\n    public Rectangle(Rectangle r) {\n        this.left = r.left;\n        this.top = r.top;\n        this.height = r.height;\n        this.width = r.width;\n    }\n}"
+    ,"templateCode":"public class Rectangle\n{\n    private int left;\n    private int top;\n    private int width;\n    private int height;\n\n    // Insert your code here\n\n}"
+    ,"tests":"import org.junit.Test;\nimport java.lang.reflect.Constructor;\n\nimport static org.junit.Assert.assertTrue;\n\npublic class RectangleTest {\n\n    @Test\n    public void test() throws Exception {\n        Constructor[] constructors = Rectangle.class.getConstructors();\n        assertTrue(\"The number of constructors must be greater or equals 4\", constructors.length > 3);\n    }\n}"
+    ,"rating":42.0
+    ,"likedBy":["Populator", "beast"]
+    ,"dislikedBy":["sashok"]
+    ,"votersAmount":4
+    ,"averageAttempts":88.53
+    ,"successfulAttempts":12
+    ,"failureAttempts":1
+}
+>--------------------------------------------------------<

@@ -1,0 +1,14 @@
+#!/bin/bash
+rm -rf work
+mkdir work
+
+# Make some cookies
+wget --directory-prefix=work    \
+    --output-file=work/log.txt  \
+    --save-headers              \
+    --keep-session-cookies      \
+    --save-cookies cookies.txt  \
+    --post-data 'j_username=alex&j_password=12345' \
+    http://localhost:8080/j_spring_security_check
+
+cat -n cookies.txt work/* | less

@@ -1,0 +1,10 @@
+#!/bin/bash
+rm -rf work
+mkdir work
+
+wget --directory-prefix=work    \
+    --output-file=work/log.txt  \
+    --save-headers              \
+    http://localhost:8080/rest/users/me
+
+cat -n work/* | less

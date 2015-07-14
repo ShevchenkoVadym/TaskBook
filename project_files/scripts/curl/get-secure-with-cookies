@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Before using this command you must authenticate with user
+# and get actual COOOKIES
+curl --cookie JSESSIONID=C37E405307C346EA8B70B39C2B954DED \
+        http://localhost:8080/rest/users/me

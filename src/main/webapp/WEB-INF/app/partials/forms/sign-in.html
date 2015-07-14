@@ -1,0 +1,46 @@
+<div ng-controller="LoginController" class="ngdialog-message">
+
+<div class="row">
+  <div class="col-md-10" style="border-right: 1px solid #DDD">
+    <div>
+      <div ng-include src="'partials/forms/_form-messages.html'"></div>
+    </div>
+
+    <form name="formNewSession" class="form-horizontal" style="margin-top: 5px;">
+      <div class="form-group">
+        <div class="col-sm-12">
+          <input type="text" ng-model="login_try.username" autofocus placeholder="Логин" class="form-control" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-12">
+          <input type="password" ng-model="login_try.password" placeholder="Пароль" class="form-control" required />
+        </div>
+      </div>
+      <!--<div class="form-group">-->
+        <!--<div class="col-sm-12">-->
+          <!--<div class="checkbox">-->
+            <!--<label>-->
+              <!--<input type="checkbox" ng-model="remember_me" /> Запомнить меня-->
+            <!--</label>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <div class="form-group">
+        <div class="col-sm-12 text-center">
+          <input type="submit" class="btn btn-sm btn-primary" value="Войти"
+                 ng-click="signIn(login_try)" ng-disabled="formNewSession.$invalid"
+                 ng-hide="show_loader" />
+          <img ng-show="show_loader" src="assets/img/ajax-loader.gif" class="loader">
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-md-2 text-center" id="social-auth">
+    <div ng-include src="'partials/forms/social-auth.html'"></div>
+  </div>
+</div>
+
+
+</div>

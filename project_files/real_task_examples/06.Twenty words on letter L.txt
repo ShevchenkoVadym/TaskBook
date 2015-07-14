@@ -1,0 +1,109 @@
+Название задачи
+>--------------------------------------------------------<
+20 слов на букву «Л»
+>--------------------------------------------------------<
+
+Условие задачи:
+>--------------------------------------------------------<
+Создать множество строк (Set<String>) в методе createSet, занести в него 20 слов на букву «Л».
+>--------------------------------------------------------<
+
+Эталонное решение задачи:
+>--------------------------------------------------------<
+import java.util.HashSet;
+
+public class Solution
+{
+    public static HashSet<String> createSet()
+    {
+        //Напишите тут ваш код
+        HashSet<String> hset = new HashSet<String>();
+        hset.add("Лиса");
+        hset.add("Лось");
+        hset.add("Липа");
+        hset.add("Ласка");
+        hset.add("Лодка");
+        hset.add("Ложка");
+        hset.add("Лес");
+        hset.add("Лик");
+        hset.add("Лицо");
+        hset.add("Ламель");
+        hset.add("Лишний");
+        hset.add("Лопата");
+        hset.add("Лейка");
+        hset.add("Ластик");
+        hset.add("Лимон");
+        hset.add("Лайм");
+        hset.add("Лимонад");
+        hset.add("Лаваш");
+        hset.add("Лимончелло");
+        hset.add("Лаванда");
+        return hset;
+
+    }
+}
+
+>--------------------------------------------------------<
+
+Шаблон задачи:
+>--------------------------------------------------------<
+import java.util.HashSet;
+
+public class Solution
+{
+    public static HashSet<String> createSet()
+    {
+        //Напишите тут ваш код
+
+
+    }
+}
+
+>--------------------------------------------------------<
+
+Тесты:
+>--------------------------------------------------------<
+import org.junit.Test;
+
+import java.util.Set;
+import static org.junit.Assert.assertEquals;
+
+public class SolutionTest {
+
+    @Test
+    public void testCreateSet() throws Exception {
+        Set<String> stringSet = Solution.createSet();
+       assertEquals(stringSet.size() , 20);
+        for(String string : stringSet) {
+            assertEquals(string.charAt(0) , 'Л');
+        }
+
+    }
+}
+>--------------------------------------------------------<
+
+Json with inner formatting received from frontend (with some ONE LINE COMMENTS):
+>--------------------------------------------------------<
+{
+        "_class"    : "ru.javarush.taskbook.model.Task"
+    ,"author":"mary"
+    ,"tags":["Set","String"]
+    ,"authorityName":"mary"
+    ,"creationDate": "2015-02-10T00:00:01.001Z"
+    ,"lastModificationDate": "2015-02-21T00:00:01.001Z"
+    ,"approvalDate": "2015-02-21T00:00:01.001Z"
+    ,"lifeStage":"APPROVED"
+    ,"level":"JUNIOR"
+    ,"taskName":"20 слов на букву «Л»"
+    ,"condition":"Создать множество строк (Set<String>) в методе createSet, занести в него 20 слов на букву «Л»."
+    ,"sourceCode":"import java.util.HashSet;\n \n public class Solution\n{\n public static HashSet<String> createSet()\n{\n//Напишите тут ваш код \n HashSet<String> hset = new HashSet<String>();\n  hset.add(\"Лиса\");\n hset.add(\"Лось\");\n hset.add(\"Липа\");\n hset.add(\"Ласка\");\n hset.add(\"Лодка\");\n hset.add(\"Ложка\");\n hset.add(\"Лес\");\n hset.add(\"Лик\");\n hset.add(\"Лицо\");\n hset.add(\"Ламель\");\n hset.add(\"Лишний\");\n hset.add(\"Лопата\");\n hset.add(\"Лейка\");\n hset.add(\"Ластик\");\n hset.add(\"Лимон\");\n hset.add(\"Лайм\");\n hset.add(\"Лимонад\");\n hset.add(\"Лаваш\");\n hset.add(\"Лимончелло\");\n hset.add(\"Лаванда\");\n return hset;\n\n }\n } \n "
+    ,"templateCode":"import java.util.HashSet; \n \n\n    public class Solution \n {\n  public static HashSet<String> createSet()\n {\n   //Напишите тут ваш код\n\n}\n}"
+    ,"tests":"import org.junit.Test;\n\n   import java.util.Set;\n   import static org.junit.Assert.assertEquals;\n\n  public class SolutionTest {\n\n @Test\n public void testCreateSet() throws Exception {\n Set<String> stringSet = Solution.createSet();\n assertEquals(stringSet.size() , 20);\n for(String string : stringSet) {\n assertEquals(string.charAt(0) , 'Л');\n }\n\n }\n }"
+    ,"rating": 1
+    ,"votersAmount":1
+    ,"averageAttempts":1
+    ,"successfulAttempts":1
+    ,"failureAttempts":1
+    ,"testEnvironment":"JAVA_JUNIT"
+    }
+>--------------------------------------------------------<

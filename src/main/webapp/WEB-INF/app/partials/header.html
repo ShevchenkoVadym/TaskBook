@@ -1,0 +1,72 @@
+<!-- Modal dialogs: Sign in/Sign up/Password Recovery -->
+<script type="text/ng-template" id="session-signup">
+  <div ng-include src="'partials/forms/registration.html'"></div>
+</script>
+<script type="text/ng-template" id="session-signin">
+  <tabset justified="true" style="margin-top: 10px;">
+    <tab heading="Вход">
+      <div ng-include src="'partials/forms/sign-in.html'"></div>
+    </tab>
+    <tab heading="Восстановление пароля">
+      <div ng-include src="'partials/forms/password-recover.html'"></div>
+    </tab>
+  </tabset>
+</script>
+
+<nav class="navbar navbar-default">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a href="#/">
+        <img ng-src="assets/img/javarush_icon.png" style="max-height: 50px;">
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="navbar">
+      <ul class="nav navbar-nav">
+        <li ng-class="{'active': isMenuItemActive('/')}"><a href="#/">Главная</a></li>
+        <li ng-class="{'active': isMenuItemActive('/tasks')}"><a href="#/tasks">Задачи</a></li>
+        <!-- <li><a href="#/tests">Тесты</a></li> -->
+        <li ng-class="{'active': isMenuItemActive('/users')}"><a href="#/users">Пользователи</a></li>
+        <li ng-class="{'active': isMenuItemActive('/about')}"><a href="#/about">О сайте</a></li>
+        <li ng-if="isLoggedIn()" ng-class="{'active': isMenuItemActive('/tasks/new')}">
+          <a href="#/tasks/new">Добавить задачу</a>
+        </li>
+      </ul>
+      
+      <!--<form class="navbar-form navbar-left" role="search" style="width: 225px;">-->
+        <!--<div class="input-group">-->
+          <!--<input type="text" class="form-control" placeholder="Поиск по сайту...">-->
+          <!--<span class="input-group-addon">-->
+            <!--<i class="glyphicon glyphicon-search"></i>-->
+          <!--</span>-->
+        <!--</div>-->
+      <!--</form>-->
+
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-show="isLoggedIn()">
+          <p class="navbar-text">Привет, <a href="#/users/{{getUsername()}}">{{getFullname() || getUsername()}}</a>!</p>
+        </li>
+        <li ng-show="isLoggedIn()">
+          <button type="button" class="btn btn-danger navbar-btn" ng-click="logout()">
+            Выход
+          </button>
+        </li>
+        <li ng-show="!isLoggedIn()">
+          <button type="button" class="btn btn-info navbar-btn" ng-dialog="session-signin">
+            Вход
+          </button>
+        </li>
+        <li ng-show="!isLoggedIn()">&nbsp;</li>
+        <li ng-show="!isLoggedIn()">
+          <button type="button" class="btn btn-success navbar-btn" ng-dialog="session-signup">
+            Регистрация
+          </button>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+</div>

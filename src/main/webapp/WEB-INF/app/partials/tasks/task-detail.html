@@ -1,0 +1,120 @@
+<script type="text/ng-template" id="help">
+  <div ng-include src="'partials/other/_info-task-rating.html'"></div>
+</script>
+
+<div class="text-center">
+  <h3>
+    {{task.taskName}}
+    <a href="#/tasks/{{task.id}}/edit" class="btn btn-xs btn-warning" style="color: #FFF"
+      ng-if="taskEditorsOnly()">
+    </a>
+    <button type="button" ng-if="isAdmin()" class="btn btn-xs btn-danger"
+            confirmed-click="deleteTask(task)" ng-confirm-click=" Удалить задачу? ">
+      Delete
+    </button>
+  </h3>
+</div>
+
+<div class="row field">
+  <div class="col-md-6">
+    <div class="task-info">
+      <label>Автор:</label> <a href="#/users/{{task.author}}">{{task.author}}</a>
+    </div>
+    <div class="task-info">
+      <label>Уровень:</label> <a href="#/tasks?levels={{task.level}}">{{task.level}}</a>
+    </div>
+    <div class="task-info">
+      <label>Баллы: </label> <a href="#/tasks?levels={{task.level}}">{{task.author}}</a> <a href ng-dialog="help"><span class="glyphicon glyphicon-question-sign"></span></a>
+    </div>
+    <br>
+    <div class="task-info">
+      <label>Тэги:</label>
+      <span class="glyphicon glyphicon-tags"></span>&nbsp;
+      <span ng-repeat="tag in task.tags">
+
+        <a href="#/tasks?tags={{tag}}" class="btn btn-xs btn-default">{{tag}}</a>
+      </span>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="task-info task-rating">
+      <label>Рейтинг:</label>
+      <a href class="like-task" ng-if="isLoggedIn() && !hasLiked() && !hasDisliked()" ng-click="vote(1)">
+        <span class="fa fa-thumbs-up"></span>
+      </a>
+      <span ng-class="{'like-task': hasLiked(), 'dislike-task': hasDisliked()}">
+        <b>{{ task.rating }}</b>
+      </span>
+      <a href class="dislike-task" ng-if="isLoggedIn() && !hasLiked() && !hasDisliked()" ng-click="vote(-1)">
+        <span class="fa fa-thumbs-down"></span>
+      </a>
+      <br />
+      <span class="vote-info" ng-if="!hasLiked() && !hasDisliked()">
+        Всего голосов: {{ task.votersAmount }}
+      </span>
+      <span class="vote-info" ng-if="hasLiked()">
+        Вам
+        <span ng-if="task.likedBy.length - 1 > 0">
+           и еще {{ task.likedBy.length - 1 }} {{ task.likedBy.length - 1 == 1 ? 'пользователю' : 'пользователям' }}
+        </span>
+        понравилась эта задача.
+      </span>
+      <span class="vote-info" ng-if="hasDisliked()">
+        Вам
+        <span ng-if="task.dislikedBy.length - 1 > 0">
+           и еще {{ task.dislikedBy.length - 1}} {{ task.dislikedBy.length - 1 == 1 ? 'пользователю' : 'пользователям' }}
+        </span>
+        не понравилась эта задача.
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="field">
+  <label>Описание:</label><br />
+  <textarea ng-model="task.condition" ng-disabled="true" name="description" class="condition-area" ng-style="condStyle"></textarea>
+</div>
+
+<div>
+  <div ng-include src="'partials/forms/_form-messages.html'"></div>
+</div>
+
+<div ng-if="isLoggedIn()">
+  <div ng-if="isEnabled()">
+    <form name="formSolution" style="margin-top: 10px;">
+      <div class="form-group">
+        <label>Код решения:</label><br />
+        <div class="ui-cm-editor">
+          <textarea ui-codemirror ui-codemirror-opts="editorOptions"
+                    ng-model="task.templateCode" required>
+          </textarea>
+        </div>
+      </div>
+
+      <div class="form-group text-center">
+        <input type="submit" ng-hide="show_loader" ng-click="check(task.templateCode)" class="btn btn-primary" ng-disabled="formSolution.$invalid" value="Отправить на проверку" />
+        <img ng-show="show_loader" src="assets/img/ajax-loader.gif" style="max-height: 34px;">
+      </div>
+    </form>
+
+    <div class="text-center" ng-if="isNonReadOnly">
+      <dir-disqus disqus-shortname="javapractice"
+                  disqus-identifier="{{ task.id }}"
+                  disqus-url="{{ disqus_url }}"
+                  ready-to-bind="{{ disqus_ready }}">
+      </dir-disqus>
+    </div>
+  </div>
+
+  <div ng-if="!isEnabled()" style="margin-top: 10px;" class="text-center">
+      <span style="color: red">
+        Ваш аккаунт заблокирован.
+      </span>
+  </div>
+
+</div>
+
+<div ng-show="!isLoggedIn()" style="margin-top: 10px;" class="text-center">
+  Чтобы решить задачу <a href ng-dialog="session-signin">войдите</a> или
+  <a href ng-dialog="session-signup">зарегистрируйтесь.</a>
+</div>

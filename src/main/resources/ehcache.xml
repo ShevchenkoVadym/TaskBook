@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+         updateCheck="false">
+
+    <diskStore path="java.io.tmpdir" />
+
+    <defaultCache maxElementsInMemory="10000" eternal="true"
+                  overflowToDisk="false" diskPersistent="false"
+                  diskExpiryThreadIntervalSeconds="1800" memoryStoreEvictionPolicy="FIFO">
+    </defaultCache>
+
+    <cache name="getAllUsers"
+           maxElementsInMemory="20000"
+           maxElementsOnDisk="30000"
+           eternal="true"
+           overflowToDisk="true"/>
+
+    <cache name="userByUserName"
+           maxElementsInMemory="20000"
+           maxElementsOnDisk="30000"
+           eternal="true"
+           overflowToDisk="true"/>
+
+    <cache name="findAllTasks"
+           maxElementsInMemory="20000"
+           maxElementsOnDisk="30000"
+           eternal="true"
+           overflowToDisk="true"/>
+
+    <cache name="findOneTask"
+           maxElementsInMemory="20000"
+           maxElementsOnDisk="30000"
+           eternal="true"
+           overflowToDisk="true"/>
+
+    <cache name="getAddedTasks"
+           maxElementsInMemory="10000"
+           maxElementsOnDisk="30000"
+           eternal="true"
+           overflowToDisk="true"/>
+
+    <cache name="getAllLevels"
+           maxElementsInMemory="50"
+           eternal="true"/>
+
+    <cache name="getAllTags"
+           maxElementsInMemory="10000"
+           maxElementsOnDisk="20000"
+           eternal="true"
+           overflowToDisk="true"/>
+
+    <cache name="getAllUserTasks"
+           maxElementsInMemory="10000"
+           maxElementsOnDisk="30000"
+           eternal="true"
+           overflowToDisk="true"/>
+
+</ehcache>

@@ -1,0 +1,14 @@
+<div class="form-message" ng-hide="formError === undefined">
+  <div class="alert alert-danger" role="alert">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Ошибка:</span>
+    {{formError}}
+  </div>
+</div>
+
+<div class="form-message" ng-hide="formInfo === undefined">
+  <div class="alert alert-info" role="alert">
+    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+    {{formInfo}}
+  </div>
+</div>

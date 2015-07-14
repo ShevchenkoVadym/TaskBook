@@ -1,0 +1,98 @@
+<div ng-controller="RegistrationController" class="ngdialog-message">
+
+<div class="row">
+  <div class="col-md-9" style="border-right: 1px solid #DDD">
+
+    <div ng-include src="'partials/forms/_form-messages.html'"></div>
+
+    <div class="form-message" ng-hide="!formNewUser.$error.required">
+      <div class="alert alert-warning" role="alert">
+        <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+        Все поля обязательны к заполнению.
+      </div>
+    </div>
+
+    <form name="formNewUser" class="form-horizontal" style="margin-top: 10px;" autocomplete="off">
+      <div class="form-group">
+        <div class="col-sm-12">
+          <div class="has-feedback" ng-class="{'has-error': formNewUser.username.$invalid, 'has-success': !formNewUser.username.$invalid}">
+            <div class="input-group">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-user"></span>
+          </span>
+              <input type="text" ng-model="new_user.username" ng-pattern="/^[a-zA-Z0-9_]+$/" autofocus placeholder="Логин" class="form-control" name="username" required />
+            </div>
+
+            <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="!formNewUser.username.$invalid"></span>
+            <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="formNewUser.username.$invalid"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-12">
+          <div class="has-feedback" ng-class="{'has-error': formNewUser.email.$invalid, 'has-success': !formNewUser.email.$invalid}">
+            <div class="input-group">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-envelope"></span>
+          </span>
+              <input type="text" ng-pattern="/^[_a-z0-9!#$%&'*+/=?^_`{|}~-]+(\.[_a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"
+                     ng-model="new_user.email" placeholder="Эл.почта" class="form-control" name="email" required />
+            </div>
+
+            <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="!formNewUser.email.$invalid"></span>
+            <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="formNewUser.email.$invalid"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-12">
+          <div class="has-feedback" ng-class="{'has-error': formNewUser.password.$invalid || new_user.password != password_verify, 'has-success': !formNewUser.password.$invalid && new_user.password == password_verify}">
+            <div class="input-group">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-lock"></span>
+          </span>
+              <input type="password" ng-model="new_user.password" equals="{{password_verify}}" placeholder="Пароль" class="form-control" name="password" required />
+            </div>
+
+            <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="!formNewUser.password.$invalid && new_user.password == password_verify"></span>
+            <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="formNewUser.password.$invalid || new_user.password != password_verify"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-12">
+          <div class="has-feedback" ng-class="{'has-error': formNewUser.password_verify.$invalid, 'has-success': !formNewUser.password_verify.$invalid}">
+            <div class="input-group">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-lock"></span>
+          </span>
+              <input type="password" ng-model="password_verify" equals="{{new_user.password}}" placeholder="Подтверждение пароля" class="form-control" name="password_verify" required />
+            </div>
+
+            <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="!formNewUser.password_verify.$invalid"></span>
+            <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="formNewUser.password_verify.$invalid"></span>
+
+            <div class="text-center" ng-show="new_user.password != password_verify" style="color: red;">Пароль и подтверждение должны совпадать</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-12 text-center">
+          <input type="submit" class="btn btn-sm btn-primary" value="Создать аккаунт" ng-click="signUp(new_user)" ng-disabled="formNewUser.$invalid"/>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-md-3 text-center" id="social-auth">
+    <div class="text-center">Войти через соцсети</div>
+
+    <div ng-include src="'partials/forms/social-auth.html'"></div>
+  </div>
+</div>
+
+</div>

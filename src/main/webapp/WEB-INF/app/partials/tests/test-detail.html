@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6" style="text-align: center;">
+  <form name="testForm">
+  <ul class="test-q">
+    <li ng-repeat="question in test.questions">
+      <i>Вопрос {{$index + 1}}. {{question.text}}</i>
+      <div ng-switch on="question.code">
+        <div ng-switch-when="none">
+        </div>
+        <div ng-switch-default>
+          <div class="code-input">
+            {{question.code}}
+          </div>
+        </div>
+      </div>
+      <ul class="test-q">
+        <li ng-repeat="answer in question.answers">
+          <div ng-switch on="question.acceptMultiple">
+            <div ng-switch-when="true">
+              <label>
+                <input type="checkbox"/> {{answer}}
+              </label>
+            </div>
+            <div ng-switch-default>
+              <label>
+                <input type="radio" name="name" />
+                {{answer}}
+              </label>          
+            </div>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <button class="btn btn-success" style="margin-left:auto;margin-right:auto;width:100px;">Проверить</button>
+  </div>
+</div>

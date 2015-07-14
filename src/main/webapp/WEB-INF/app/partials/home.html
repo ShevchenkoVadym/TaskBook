@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-md-6 col-sm-12">
+    <h3>Топ пользователей</h3>
+    <table class="table table-bordered table-condensed table-hover">
+      <thead>
+        <th>#</th>
+        <th>Страна</th>
+        <th>Пользователь</th>
+        <th>Рейтинг</th>
+        <th>Задач решено</th>
+        <!--<th>Тестов пройдено</th>-->
+      </thead>
+      <tr ng-repeat="user in users" class="item-listing">
+        <td>{{$index + 1}}</td>
+        <td>
+          <span ng-if="user.country">
+            <img ng-src="assets/img/flags/16/{{user.country + '.png'}}">
+          </span>
+          <span ng-if="!user.country">
+            <span class="glyphicon glyphicon-question-sign"></span>
+          </span>
+        </td>
+        <td><a href="#/users/{{user.username}}">{{user.username}}</a></td>
+        <td>{{user.rating}}</td>
+        <td>{{user.tasksSolved}}</td>
+        <!--<td>{{user.passed}}</td>-->
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-6 col-sm-12">
+    <h3>Топ Задач</h3>
+    <table class="table table-bordered table-condensed table-hover">
+      <thead>
+        <th>#</th>
+        <th>Название</th>
+        <th>Рейтинг</th>
+        <th>Автор</th>
+      </thead>
+      <tr ng-repeat="task in tasks" class="item-listing">
+        <td>{{$index + 1}}</td>
+        <td><a href="#/tasks/{{task.id}}">{{task.taskName}}</a></td>
+        <td>{{task.rating}}</td>
+        <td><a href="#/users/{{task.author}}">{{task.author}}</a></td>
+      </tr>
+    </table>
+  </div>
+</div>
